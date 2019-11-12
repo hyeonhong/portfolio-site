@@ -1,0 +1,34 @@
+{
+  "name": "hyeonhong-io",
+  "version": "0.1.0",
+  "author": "Hyeon Hong",
+  "dependencies": {
+    "gatsby": "^2.17.11",
+    "gatsby-image": "^2.2.31",
+    "gatsby-plugin-manifest": "^2.2.27",
+    "gatsby-plugin-offline": "^3.0.19",
+    "gatsby-plugin-react-helmet": "^3.1.14",
+    "gatsby-plugin-sharp": "^2.2.37",
+    "gatsby-remark-images": "^3.1.30",
+    "gatsby-remark-relative-images": "^0.2.3",
+    "gatsby-source-filesystem": "^2.1.36",
+    "gatsby-transformer-remark": "^2.6.33",
+    "gatsby-transformer-sharp": "^2.3.3",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-helmet": "^5.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "deploy": "gatsby build && aws s3 sync build/. s3://hyeonhong-io.app",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  }
+}
