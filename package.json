@@ -6,7 +6,6 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "deploy": "gatsby build && aws s3 sync public/. s3://hyeonhong-io.app",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
@@ -28,7 +27,5 @@
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1"
   },
-  "devDependencies": {
-    "prettier": "^1.19.1"
-  }
+  "devDependencies": {}
 }
