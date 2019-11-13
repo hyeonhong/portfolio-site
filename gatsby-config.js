@@ -4,8 +4,8 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Default Starter',
-    description: 'description goes here',
+    title: 'Hyeon Hong',
+    description: 'Software Developer Portfolio',
     author: 'Hyeon Hong'
   },
   plugins: [
