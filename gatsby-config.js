@@ -53,6 +53,18 @@ module.exports = {
         display: 'minimal-ui',
         icon: 'src/images/favicon.png' // This path is relative to the root of the site.
       }
+    },
+    'gatsby-plugin-material-ui',
+    {
+      resolve: 'gatsby-plugin-prefetch-google-fonts',
+      options: {
+        fonts: [
+          {
+            family: 'Roboto',
+            variants: ['400', '500', '700']
+          }
+        ]
+      }
     }
   ]
 };
