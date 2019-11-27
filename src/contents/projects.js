@@ -24,7 +24,7 @@ const projects = [
     heading: 'Portfolio Website',
     content:
       'Built with React, GatsbyJS, Material-UI. Blog contents are implemented with GraphQL, Markdown. Hosted on AWS S3 with Serverless in mind.',
-    imageSrc: '/images/card6.png',
+    imageSrc: '/images/card4.png',
     gitSrc: 'https://github.com/hyeonhong/portfolio-site'
   },
   {
@@ -38,7 +38,7 @@ const projects = [
     heading: 'System Monitoring Util',
     content:
       ' It is a Python script that monitors the overall health of system in the internal servers such as memory and CPU usage.',
-    imageSrc: '/images/card4.png',
+    imageSrc: '/images/card6.png',
     gitSrc: 'https://github.com/hyeonhong/system-monitor-util'
   }
 ];
