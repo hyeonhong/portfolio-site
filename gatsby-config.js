@@ -61,8 +61,20 @@ module.exports = {
         fonts: [
           {
             family: 'Roboto',
-            variants: ['400', '500', '700']
+            variants: ['300', '400', '500', '700']
+          },
+          {
+            family: 'Montserrat',
+            variants: ['300', '400', '500', '600']
           }
+          // {
+          //   family: 'Open Sans',
+          //   variants: ['300', '400', '600', '700']
+          // },
+          // {
+          //   family: 'Lato',
+          //   variants: ['300', '400', '700']
+          // }
         ]
       }
     }

@@ -71,5 +71,5 @@ yarn-error.log
 # production
 build/
 
-# # dotenv environment variable files
-# .env*
+# dotenv environment variable files
+.env*

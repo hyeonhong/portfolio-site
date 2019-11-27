@@ -1,0 +1,30 @@
+const keywords = [
+  'JavaScript',
+  'React',
+  'Redux',
+  'AWS Lambda',
+  'Serverless',
+  'Firebase',
+  'MySQL',
+  'PostgreSQL',
+  'MongoDB',
+  'Gatsby.js',
+  'GraphQL',
+  'Apollo',
+  'TypeScript',
+  'Python',
+  'Flask',
+  'Express.js',
+  'Puppeteer',
+  'Electron',
+  'BootStrap',
+  'Material-UI',
+  'Webpack',
+  'Ansible',
+  'Nginx',
+  'Redis',
+  'Docker',
+  'Git'
+];
+
+export default keywords;

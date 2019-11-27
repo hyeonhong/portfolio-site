@@ -1,42 +1,62 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Container, AppBar, Toolbar, Typography, Tabs, Tab } from '@material-ui/core';
+import Link from '../components/Link';
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
+const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1,
+    fontFamily: 'Montserrat'
+  },
+  titleLink: {
+    color: theme.palette.primary.contrastText
+  },
+  tab: {
+    fontSize: '1rem',
+    minWidth: 100,
+    width: 100
+  }
+}));
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
+const Header = ({ headerTabValue }) => {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(headerTabValue);
 
-Header.defaultProps = {
-  siteTitle: ``,
-}
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
-export default Header
+  return (
+    <AppBar position="sticky">
+      <Container maxWidth="md">
+        <Toolbar variant="dense" disableGutters>
+          <Typography variant="h6" className={classes.title}>
+            <Link to="/" underline="none" className={classes.titleLink}>
+              Hyeon Hong
+            </Link>
+          </Typography>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            // TabIndicatorProps={{
+            //   style: {
+            //     backgroundColor: '#19857b'
+            //   }
+            // }}
+          >
+            <Tab label="Home" to="/" underline="none" component={Link} className={classes.tab} />
+            <Tab
+              label="Blog"
+              to="/blog"
+              underline="none"
+              component={Link}
+              className={classes.tab}
+            />
+          </Tabs>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+};
+
+export default Header;
