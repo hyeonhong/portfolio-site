@@ -1,7 +1,8 @@
 import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Typography, Paper, Grid, Box } from '@material-ui/core';
+import Pagination from 'material-ui-flat-pagination';
 
 import Link from '../components/Link';
 import Layout from '../components/Layout';
@@ -33,26 +34,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const BlogPage = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark {
-        edges {
-          node {
-            frontmatter {
-              title
-              date
-            }
-            fields {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-
+const BlogPage = ({ data, pageContext }) => {
   const classes = useStyles();
+  const [offset, setOffset] = React.useState(pageContext.skip);
+
+  const handleClick = (event, newOffset) => {
+    const newPage = newOffset / pageContext.limit + 1;
+    const newPath = newPage === 1 ? '/blog' : `/blog/${newPage}/`;
+    navigate(newPath);
+    setOffset(newOffset);
+  };
 
   return (
     <Layout headerTabValue={1}>
@@ -80,10 +71,40 @@ const BlogPage = () => {
             );
           })}
         </Grid>
-        <Box marginBottom={20} />
+        <Box marginBottom={10} />
+        <Pagination
+          align="center"
+          limit={pageContext.limit}
+          offset={offset}
+          total={pageContext.numPages * pageContext.limit}
+          onClick={handleClick}
+        />
+        <Box marginBottom={10} />
       </Container>
     </Layout>
   );
 };
 
 export default BlogPage;
+
+export const query = graphql`
+  query($skip: Int!, $limit: Int!) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title
+            date
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+`;

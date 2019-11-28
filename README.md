@@ -1,5 +1,7 @@
 # Portfolio Website
 
+[https://hyeonhong.io](https://hyeonhong.io)
+
 ## Stacks
 
 - React
@@ -9,11 +11,10 @@
 
 ## Usage
 
-1. Configure the env file
+1. Download repo
 
 ```
-echo 'GATSBY_DISQUS_NAME=your_disqus_shortname' > .env.development
-echo 'GATSBY_DISQUS_NAME=your_disqus_shortname' > .env.production
+git clone https://github.com/hyeonhong/portfolio-site.git
 ```
 
 2. Install dependencies
@@ -22,7 +23,15 @@ echo 'GATSBY_DISQUS_NAME=your_disqus_shortname' > .env.production
 yarn install
 ```
 
-2. Run as **development** in the local environment
+3. Configure the env file
+
+```
+echo 'GATSBY_DISQUS_NAME=your_disqus_shortname' > .env.development
+echo 'GATSBY_DISQUS_NAME=your_disqus_shortname' > .env.production
+```
+
+
+4. Run as **development** in the local environment
 
 ```
 yarn run develop
@@ -30,7 +39,7 @@ yarn run develop
 
 The site will be running at `http://localhost:8000`
 
-3. Build the production bundle
+5. Build the production bundle
 
 ```
 yarn run build
@@ -38,7 +47,7 @@ yarn run build
 
 The production bundle is created in the `/public` directory
 
-4. Run as **production** in the local environment
+6. Run as **production** in the local environment
 
 ```
 yarn run serve

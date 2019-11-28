@@ -1,11 +1,11 @@
 const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
 
-module.exports.onCreateNode = ({ node, actions }) => {
+module.exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === 'MarkdownRemark') {
-    const slug = path.basename(node.fileAbsolutePath, '.md');
-
+    const slug = createFilePath({ node, getNode });
     createNodeField({
       node,
       name: 'slug',
@@ -16,10 +16,9 @@ module.exports.onCreateNode = ({ node, actions }) => {
 
 module.exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const blogTemplate = path.resolve('./src/templates/blog.js');
-  const res = await graphql(`
+  const result = await graphql(`
     query {
-      allMarkdownRemark {
+      allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
         edges {
           node {
             fields {
@@ -31,10 +30,32 @@ module.exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  res.data.allMarkdownRemark.edges.forEach((edge) => {
+  if (result.errors) {
+    throw result.errors;
+  }
+
+  // Create blog-list pages
+  const posts = result.data.allMarkdownRemark.edges;
+  const postsPerPage = 4;
+  const numPages = Math.ceil(posts.length / postsPerPage);
+  for (let i = 0; i < numPages; ++i) {
     createPage({
-      component: blogTemplate,
-      path: `/blog/${edge.node.fields.slug}`,
+      path: i === 0 ? '/blog' : `/blog/${i + 1}`,
+      component: path.resolve('./src/templates/blog-list.js'),
+      context: {
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        numPages,
+        currentPage: i + 1
+      }
+    });
+  }
+
+  // Create blog post pages
+  result.data.allMarkdownRemark.edges.forEach((edge) => {
+    createPage({
+      component: path.resolve('./src/templates/blog-post.js'),
+      path: '/blog' + edge.node.fields.slug,
       context: {
         slug: edge.node.fields.slug
       }

@@ -1,6 +1,6 @@
 ---
 title: 'Deciding between Debit and Credit Cards'
-date: '2019-11-27'
+date: '2019-11-27T17:10:07.517Z'
 ---
 
 The following is the term paper I submitted for the Technical Writing class at UW in 2015. I'm trying to fill up some contents on my website and I can't come up with anything useful at the moment, so I'm throwing out my past writings here until I figure out which direction I choose to go for the contents.

@@ -9,8 +9,6 @@ module.exports = {
     author: 'Hyeon Hong'
   },
   plugins: [
-    'gatsby-plugin-sass',
-    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -21,10 +19,12 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'src',
-        path: `${__dirname}/src/`
+        name: 'blog',
+        path: `${__dirname}/src/contents/posts`
       }
     },
+    'gatsby-plugin-sass',
+    'gatsby-plugin-react-helmet',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
