@@ -32,8 +32,8 @@ const Bio = () => {
         }}
       />
       <Typography variant="body1" color="textPrimary">
-        Written by <strong>{data.site.siteMetadata.author}</strong>, a Software Engineer based in
-        Seoul, Korea.
+        Written by <strong>{data.site.siteMetadata.author}</strong>, who strives to achieve the best
+        in all areas, and is always open and eager to learn new skills and push himself in new ways.
       </Typography>
     </div>
   );

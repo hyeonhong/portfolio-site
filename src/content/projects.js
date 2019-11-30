@@ -23,7 +23,7 @@ const projects = [
   {
     heading: 'Portfolio Website',
     content:
-      'Built with React, GatsbyJS, Material-UI. Blog contents are implemented with GraphQL, Markdown. Hosted on AWS S3 with Serverless in mind.',
+      'Built with React, GatsbyJS, Material-UI. Blog contents are implemented with GraphQL, Markdown.',
     imageSrc: '/images/card4.png',
     gitSrc: 'https://github.com/hyeonhong/portfolio-site'
   },

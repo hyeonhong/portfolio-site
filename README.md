@@ -23,7 +23,7 @@ git clone https://github.com/hyeonhong/portfolio-site.git
 yarn install
 ```
 
-3. Configure the env file
+3. Configure the env
 
 ```
 echo 'GATSBY_DISQUS_NAME=your_disqus_shortname' > .env.development
@@ -31,7 +31,7 @@ echo 'GATSBY_DISQUS_NAME=your_disqus_shortname' > .env.production
 ```
 
 
-4. Run as **development** in the local environment
+4. Run in the development
 
 ```
 yarn run develop
@@ -47,7 +47,7 @@ yarn run build
 
 The production bundle is created in the `/public` directory
 
-6. Run as **production** in the local environment
+6. Run in the production
 
 ```
 yarn run serve

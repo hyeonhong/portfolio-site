@@ -1,10 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography, Divider, Box } from '@material-ui/core';
+import { Container, Typography, Divider, Box, Grid } from '@material-ui/core';
 import { DiscussionEmbed } from 'disqus-react';
 
 import Layout from '../components/Layout';
+import Link from '../components/Link';
 import SEO from '../components/Seo';
 import Bio from '../components/Bio';
 
@@ -23,12 +24,20 @@ const useStyles = makeStyles((theme) => ({
   },
   html: {
     '& p': {
-      fontSize: '1.25rem'
+      '& code': {
+        fontSize: '1.125rem',
+        backgroundColor: '#f6f8fa'
+      },
+      fontSize: '1.125rem'
     },
     '& ul': {
       '& li': {
-        fontSize: '1.25rem'
+        fontSize: '1.125rem'
       }
+    },
+    '& pre': {
+      fontSize: '1.125rem',
+      backgroundColor: '#f6edfa'
     }
   }
 }));
@@ -65,6 +74,16 @@ const Blog = (props) => {
         <Divider />
         <Box marginTop={3} />
         <Bio />
+        <Box marginTop={3} />
+
+        <Grid align="center">
+        <Typography  variant="h6">
+        <Link to="/blog" underline="none" color="primary">
+          Go Back to List
+        </Link>
+        </Typography>
+        </Grid>
+
         <Box marginTop={16} />
         <DiscussionEmbed {...disqusConfig} />
         <Box marginBottom={24} />

@@ -22,7 +22,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from '../components/Layout';
 import SEO from '../components/Seo';
-import projects from '../contents/projects';
+import projects from '../content/projects';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
