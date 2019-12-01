@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "author": "Hyeon Hong",
   "scripts": {
-    "build": "gatsby build",
+    "build": "rm -rf public && gatsby build",
     "develop": "gatsby clean && gatsby develop",
-    "deploy": "gatsby build && aws s3 sync public/. s3://hyeonhong-io.app",
+    "deploy": "aws s3 sync public/. s3://hyeonhong-io.app",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
