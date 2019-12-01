@@ -77,11 +77,11 @@ const Blog = (props) => {
         <Box marginTop={3} />
 
         <Grid align="center">
-        <Typography  variant="h6">
-        <Link to="/blog" underline="none" color="primary">
-          Go Back to List
-        </Link>
-        </Typography>
+          <Typography variant="h6">
+            <Link to="/blog" underline="none" color="primary">
+              Go Back to List
+            </Link>
+          </Typography>
         </Grid>
 
         <Box marginTop={16} />
