@@ -116,7 +116,7 @@ const IndexPage = () => {
             color="primary"
             className={classes.button}
             startIcon={<FontAwesomeIcon icon={faDownload} />}
-            href="documents/HyeonHong-Resume.pdf"
+            href="HyeonHong-English.pdf"
             target="_blank"
           >
             Resume
