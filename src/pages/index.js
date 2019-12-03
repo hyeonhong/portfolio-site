@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6)
   },
+  description: {
+    fontFamily: 'Lato'
+  },
   gridTitle: {
     padding: theme.spacing(8, 0, 6)
   },
@@ -107,7 +110,13 @@ const IndexPage = () => {
               alt="profile-photo"
             />
           </Grid>
-          <Typography variant="h6" align="center" color="textSecondary" paragraph>
+          <Typography
+            variant="h6"
+            align="center"
+            color="textPrimary"
+            paragraph
+            className={classes.description}
+          >
             Software Engineer
             <br />
             Full Stack Developer
@@ -179,7 +188,7 @@ const IndexPage = () => {
                     <CardMedia
                       className={classes.cardMedia}
                       image={project.imageSrc}
-                      // title="Image title"
+                      title={project.heading}
                     />
                   </MuiLink>
                 </CardActionArea>

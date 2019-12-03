@@ -66,14 +66,14 @@ module.exports = {
           {
             family: 'Montserrat',
             variants: ['300', '400', '500', '600']
+          },
+          {
+            family: 'Lato',
+            variants: ['300', '400', '700']
           }
           // {
           //   family: 'Open Sans',
           //   variants: ['300', '400', '600', '700']
-          // },
-          // {
-          //   family: 'Lato',
-          //   variants: ['300', '400', '700']
           // }
         ]
       }
