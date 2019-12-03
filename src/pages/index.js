@@ -1,9 +1,10 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
   Grid,
-  Avatar,
   Typography,
   Button,
   Card,
@@ -33,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: 50,
     width: 200,
-    height: 200
+    height: 200,
+    borderRadius: '50%'
   },
   button: {
     marginRight: theme.spacing(2),
@@ -79,6 +81,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      file(relativePath: { eq: "profile-photo.jpg" }) {
+        childImageSharp {
+          fixed(width: 200, height: 200) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `);
+
   const classes = useStyles();
 
   return (
@@ -87,10 +101,10 @@ const IndexPage = () => {
       <Container maxWidth="md">
         <div className={classes.heroContent}>
           <Grid container justify="center" alignItems="center">
-            <Avatar
-              alt="profile-photo"
-              src="/images/profile-photo.jpg"
+            <Img
+              fixed={data.file.childImageSharp.fixed}
               className={classes.avatar}
+              alt="profile-photo"
             />
           </Grid>
           <Typography variant="h6" align="center" color="textSecondary" paragraph>

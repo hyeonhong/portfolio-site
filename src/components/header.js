@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, AppBar, Toolbar, Typography, Tabs, Tab } from '@material-ui/core';
 import Link from '../components/Link';
@@ -19,6 +20,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ headerTabValue }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          author
+        }
+      }
+    }
+  `);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(headerTabValue);
 
@@ -32,7 +43,7 @@ const Header = ({ headerTabValue }) => {
         <Toolbar variant="dense" disableGutters>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" underline="none" className={classes.titleLink}>
-              Hyeon Hong
+              {data.site.siteMetadata.author}
             </Link>
           </Typography>
           <Tabs
