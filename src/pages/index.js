@@ -125,6 +125,7 @@ const IndexPage = () => {
             variant="contained"
             href="https://github.com/hyeonhong"
             target="_blank"
+            rel="noopener"
             className={classes.button}
             startIcon={<FontAwesomeIcon icon={faGithub} />}
             style={{
@@ -138,6 +139,7 @@ const IndexPage = () => {
             variant="contained"
             href="https://www.linkedin.com/in/hyeonhong/"
             target="_blank"
+            rel="noopener"
             className={classes.button}
             startIcon={<FontAwesomeIcon icon={faLinkedin} />}
             style={{
@@ -180,6 +182,7 @@ const IndexPage = () => {
                     color="primary"
                     href={project.gitSrc}
                     target="_blank"
+                    rel="noopener"
                   >
                     View it on GitHub
                   </Button>
