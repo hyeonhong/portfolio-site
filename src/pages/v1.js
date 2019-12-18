@@ -3,13 +3,8 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  AppBar,
-  Toolbar,
   Container,
-  Divider,
-  Hidden,
   Grid,
-  Drawer,
   Typography,
   Button,
   Card,
@@ -20,32 +15,22 @@ import {
   Box,
   Link as MuiLink
 } from '@material-ui/core';
-
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import LayersIcon from '@material-ui/icons/Layers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 // import { faFile } from '@fortawesome/free-regular-svg-icons';
 
-import NewLayout from '../components/NewLayout';
-import DrawerList from '../components/DrawerList';
+import Layout from '../components/Layout';
 import SEO from '../components/Seo';
 import projects from '../content/projects';
 
-const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
-  // '@global': {
-  //   body: {
-  //     backgroundColor: theme.palette.common.white
-  //   }
-  // },
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white
+    }
+  },
   avatar: {
     margin: 50,
     width: 200,
@@ -95,40 +80,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1
-  },
-
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      display: 'none'
-    }
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      // display: 'none'
-    }
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0
-    }
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  root: {
-    display: 'flex'
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  },
-  toolbar: theme.mixins.toolbar,
-  item: {
-    height: '100vh'
   }
 }));
 
@@ -147,79 +98,9 @@ const IndexPage = () => {
 
   const classes = useStyles();
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
   return (
-    <NewLayout>
-      <div className={classes.root}>
-        <SEO title="Home" />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Hyeon Hong - Full Stack Developer
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              variant="temporary"
-              anchor="left"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-              }}
-            >
-              <DrawerList />
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
-              <DrawerList />
-            </Drawer>
-          </Hidden>
-        </nav>
-
-        <main className={classes.content}>
-          <Typography id="one" paragraph className={classes.item}>
-            one
-          </Typography>
-          <Typography id="two" paragraph className={classes.item}>
-            two
-          </Typography>
-          <Typography id="three" paragraph className={classes.item}>
-            three
-          </Typography>
-          <Typography id="four" paragraph className={classes.item}>
-            four
-          </Typography>
-        </main>
-      </div>
-      {/*       
+    <Layout headerTabValue={0}>
+      <SEO title="Home" />
       <Container maxWidth="md">
         <div className={classes.heroContent}>
           <Grid container justify="center" alignItems="center">
@@ -334,8 +215,8 @@ const IndexPage = () => {
           ))}
         </Grid>
       </Container>
-      <Box marginBottom={24} /> */}
-    </NewLayout>
+      <Box marginBottom={24} />
+    </Layout>
   );
 };
 
