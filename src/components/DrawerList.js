@@ -54,7 +54,7 @@ function DrawerList() {
   const [activeState, setActiveState] = React.useState(null);
 
   const ids = lists.map((list) => list.linkId);
-  let itemsServer = ids.map((id) => {
+  const itemsServer = ids.map((id) => {
     return {
       hash: id,
       node: document.getElementById(id)
@@ -78,18 +78,14 @@ function DrawerList() {
     let active;
     for (let i = itemsClientRef.current.length - 1; i >= 0; --i) {
       // No hash if we're near the top of the page
-      if (document.documentElement.scrollTop < 200) {
+      if (document.documentElement.scrollTop < 0) {
         active = { hash: null };
         break;
       }
 
       const item = itemsClientRef.current[i];
 
-      if (
-        item.node &&
-        item.node.offsetTop <
-          document.documentElement.scrollTop + document.documentElement.clientHeight / 8
-      ) {
+      if (item.node && item.node.offsetTop < document.documentElement.scrollTop) {
         active = item;
         break;
       }
@@ -103,7 +99,19 @@ function DrawerList() {
   // Corresponds to 10 frames at 60 Hz
   useThrottledOnScroll(itemsServer.length > 0 ? findActiveIndex : null, 166);
 
-  const handleClick = (hash) => () => {
+  const handleClick = (hash) => (event) => {
+    // Ignore click for new tab/new window behavior
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 || // ignore everything but left-click
+      event.metaKey ||
+      event.ctrlKey ||
+      event.altKey ||
+      event.shiftKey
+    ) {
+      return;
+    }
+
     // Used to disable findActiveIndex if the page scrolls due to a click
     clickedRef.current = true;
     unsetClickedRef.current = setTimeout(() => {

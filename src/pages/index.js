@@ -128,7 +128,8 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   item: {
-    height: '100vh'
+    height: '100vh',
+    backgroundColor: 'red'
   }
 }));
 
