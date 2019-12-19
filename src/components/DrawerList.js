@@ -70,7 +70,9 @@ function DrawerList() {
   const unsetClickedRef = React.useRef(null);
   const findActiveIndex = React.useCallback(() => {
     // set default if activeState is null
-    if (activeState === null) setActiveState(itemsServer[0].hash);
+    if (activeState === null) {
+      setActiveState(itemsServer[0].hash);
+    }
 
     // Don't set the active index based on scroll if a link was just clicked
     if (clickedRef.current) return;
@@ -121,11 +123,17 @@ function DrawerList() {
     if (activeState !== hash) {
       setActiveState(hash);
 
-      if (window)
-        window.scrollTo({
-          top: document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset,
-          behavior: 'smooth'
-        });
+      window.scrollTo({
+        top: document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset,
+        behavior: 'smooth'
+      });
+
+      // Remove id tag from url
+      window.history.replaceState(
+        null,
+        document.title,
+        window.location.pathname + window.location.search
+      );
     }
   };
 
