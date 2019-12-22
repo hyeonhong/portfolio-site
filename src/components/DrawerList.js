@@ -17,7 +17,9 @@ function useThrottledOnScroll(callback, delay) {
   ]);
 
   React.useEffect(() => {
-    if (throttledCallback === noop) return undefined;
+    if (throttledCallback === noop) {
+      return undefined;
+    }
 
     window.addEventListener('scroll', throttledCallback);
     return () => {
@@ -51,15 +53,17 @@ const lists = [
 ];
 
 function DrawerList() {
-  const [activeState, setActiveState] = React.useState(null);
+  const [activeState, setActiveState] = React.useState('');
 
   const ids = lists.map((list) => list.linkId);
-  const itemsServer = ids.map((id) => {
-    return {
-      hash: id,
-      node: document.getElementById(id)
-    };
-  });
+  const itemsServer = React.useMemo(() => {
+    return ids.map((id) => {
+      return {
+        hash: id,
+        node: document.getElementById(id)
+      };
+    });
+  }, [ids]);
 
   const itemsClientRef = React.useRef([]);
   React.useEffect(() => {
@@ -69,18 +73,20 @@ function DrawerList() {
   const clickedRef = React.useRef(false);
   const unsetClickedRef = React.useRef(null);
   const findActiveIndex = React.useCallback(() => {
-    // set default if activeState is null
-    if (activeState === null) {
-      setActiveState(itemsServer[0].hash);
-    }
+    // // set default if activeState is null
+    // if (activeState === null) {
+    //   setActiveState(itemsServer[0].hash);
+    // }
 
     // Don't set the active index based on scroll if a link was just clicked
-    if (clickedRef.current) return;
+    if (clickedRef.current) {
+      return;
+    }
 
     let active;
     for (let i = itemsClientRef.current.length - 1; i >= 0; --i) {
       // No hash if we're near the top of the page
-      if (document.documentElement.scrollTop < 0) {
+      if (document.documentElement.scrollTop < 5) {
         active = { hash: null };
         break;
       }
@@ -96,7 +102,7 @@ function DrawerList() {
     if (active && activeState !== active.hash) {
       setActiveState(active.hash);
     }
-  }, [activeState, itemsServer]);
+  }, [activeState]);
 
   // Corresponds to 10 frames at 60 Hz
   useThrottledOnScroll(itemsServer.length > 0 ? findActiveIndex : null, 166);
