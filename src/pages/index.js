@@ -123,20 +123,47 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex'
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
+    flexGrow: 1
+    // padding: theme.spacing(3)
   },
   toolbar: theme.mixins.toolbar,
   item: {
     height: '100vh',
     backgroundColor: 'red'
+  },
+  frontImage: {
+    // margin: 50,
+    // width: 200,
+    // height: 200,
+    height: '100vh'
   }
 }));
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query {
-      file(relativePath: { eq: "profile-photo.jpg" }) {
+      frontMobile: file(relativePath: { eq: "front-mobile.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000, quality: 100) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      frontMedium: file(relativePath: { eq: "front-medium.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000, quality: 100) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      frontDesktop: file(relativePath: { eq: "front-desktop.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 2000, quality: 100) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      profileImage: file(relativePath: { eq: "profile-photo.jpg" }) {
         childImageSharp {
           fixed(width: 200, height: 200) {
             ...GatsbyImageSharpFixed
@@ -145,6 +172,18 @@ const IndexPage = () => {
       }
     }
   `);
+
+  const frontSources = [
+    data.frontMobile.childImageSharp.fluid,
+    {
+      ...data.frontMedium.childImageSharp.fluid,
+      media: '(min-width: 768px) and (max-width: 999px)'
+    },
+    {
+      ...data.frontDesktop.childImageSharp.fluid,
+      media: '(min-width: 1000px)'
+    }
+  ];
 
   const classes = useStyles();
 
@@ -206,6 +245,8 @@ const IndexPage = () => {
         </nav>
 
         <main className={classes.content}>
+          <Img fluid={frontSources} className={classes.frontImage} alt="front-image" />
+
           <Typography id="one" paragraph className={classes.item}>
             one
           </Typography>
