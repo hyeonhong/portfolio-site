@@ -135,7 +135,17 @@ const useStyles = makeStyles((theme) => ({
     // margin: 50,
     // width: 200,
     // height: 200,
+
     height: '100vh'
+  },
+  foregroundText: {
+    position: 'absolute',
+    top: 0,
+    zIndex: 1,
+    width: '100%',
+    height: '100vh',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    color: 'white'
   }
 }));
 
@@ -246,6 +256,9 @@ const IndexPage = () => {
 
         <main className={classes.content}>
           <Img fluid={frontSources} className={classes.frontImage} alt="front-image" />
+          <Typography h2 className={classes.foregroundText}>
+            hello world
+          </Typography>
 
           <Typography id="one" paragraph className={classes.item}>
             one
