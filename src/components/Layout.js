@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Layout = ({ children, headerTabValue }) => {
+const Layout = ({ children }) => {
   const classes = useStyles();
 
   return (
@@ -33,7 +33,7 @@ const Layout = ({ children, headerTabValue }) => {
       <ThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
-          <Header headerTabValue={headerTabValue} />
+          <Header />
           {children}
           <div className={classes.filler}></div>
           <Footer />

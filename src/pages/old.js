@@ -99,7 +99,7 @@ const IndexPage = () => {
   const classes = useStyles();
 
   return (
-    <Layout headerTabValue={0}>
+    <Layout>
       <SEO title="Home" />
       <Container maxWidth="md">
         <div className={classes.heroContent}>

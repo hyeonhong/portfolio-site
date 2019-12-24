@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Header = ({ headerTabValue }) => {
+const Header = () => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -30,8 +30,14 @@ const Header = ({ headerTabValue }) => {
     }
   `);
 
+  const allTabs = [
+    { label: 'Home', path: '/old' },
+    { label: 'Blog', path: '/blog' }
+  ];
+  const currentIndex = allTabs.findIndex((tab) => tab.path === window.location.pathname);
+
   const classes = useStyles();
-  const [value, setValue] = React.useState(headerTabValue);
+  const [value, setValue] = React.useState(currentIndex);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -55,14 +61,16 @@ const Header = ({ headerTabValue }) => {
             //   }
             // }}
           >
-            <Tab label="Home" to="/" underline="none" component={Link} className={classes.tab} />
-            <Tab
-              label="Blog"
-              to="/blog"
-              underline="none"
-              component={Link}
-              className={classes.tab}
-            />
+            {allTabs.map((tab) => (
+              <Tab
+                key={tab.label}
+                label={tab.label}
+                to={tab.path}
+                underline="none"
+                component={Link}
+                className={classes.tab}
+              />
+            ))}
           </Tabs>
         </Toolbar>
       </Container>
