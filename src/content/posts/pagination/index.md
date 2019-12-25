@@ -9,13 +9,13 @@ So what is the alternative? Initially, I was planning on writing the code by mys
 
 According to the documentation this library is built with Button component in Material-UI.
 
-```
-import React from "react";
-import ReactDOM from "react-dom";
-import { useHistory } from "react-router-dom";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import Pagination from "material-ui-flat-pagination";
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { useHistory } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Pagination from 'material-ui-flat-pagination';
 
 const theme = createMuiTheme();
 
@@ -30,18 +30,13 @@ const BlogPage = () => {
 
   return (
     <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Pagination
-      limit={10}
-      offset={offset}
-      total={100}
-      onClick={handleClick}
-    />
+      <CssBaseline />
+      <Pagination limit={10} offset={offset} total={100} onClick={handleClick} />
     </MuiThemeProvider>
   );
 };
 
-ReactDOM.render(<BlogPage />, document.getElementById("root"));
+ReactDOM.render(<BlogPage />, document.getElementById('root'));
 ```
 
 In the above example, I had to convert the offset value to the page number, but other than that it is pretty straightforward to use.

@@ -25,19 +25,19 @@ const useStyles = makeStyles((theme) => ({
   html: {
     '& p': {
       '& code': {
-        fontSize: '1.125rem',
-        backgroundColor: '#f6f8fa'
+        fontSize: '1rem'
+        // backgroundColor: '#f6f8fa'
       },
-      fontSize: '1.125rem'
+      fontSize: '1rem'
     },
     '& ul': {
       '& li': {
-        fontSize: '1.125rem'
+        fontSize: '1rem'
       }
     },
     '& pre': {
-      fontSize: '1.125rem',
-      backgroundColor: '#f6edfa'
+      fontSize: '1rem'
+      // backgroundColor: '#f6edfa'
     }
   }
 }));

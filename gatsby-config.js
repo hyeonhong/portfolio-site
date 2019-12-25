@@ -38,7 +38,8 @@ module.exports = {
               maxWidth: 500,
               linkImagesToOriginal: false
             }
-          }
+          },
+          'gatsby-remark-prismjs'
         ]
       }
     },

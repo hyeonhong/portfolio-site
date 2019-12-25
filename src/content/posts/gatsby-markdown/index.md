@@ -73,7 +73,7 @@ export default BlogPage;
 
 Now we need to create a component that generates individual pages of blog in `src/templates/blog.js`.
 
-```
+```javascript
 import React from 'react';
 import { graphql } from 'gatsby';
 
@@ -108,7 +108,7 @@ At the root, edit two files named `gatsby-node.js` and `gatsby-config.js` as fol
 
 gatsby-node.js
 
-```
+```javascript
 const path = require('path');
 
 module.exports.onCreateNode = ({ node, actions }) => {
@@ -156,12 +156,12 @@ module.exports.createPages = async ({ graphql, actions }) => {
 
 gatsby-config.js
 
-```
+```javascript
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
     description: `Gatsby Default Starter description`,
-    author: `@gatsbyjs`,
+    author: `@gatsbyjs`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -176,8 +176,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     {
       resolve: 'gatsby-transformer-remark',
@@ -205,11 +205,11 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
-    },
-  ],
-}
+        icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
+      }
+    }
+  ]
+};
 ```
 
 Finally, create some markdown files under the folder `src/blog/`. Notice that title and date are wrapped in '---' lines, which is called front matters.
