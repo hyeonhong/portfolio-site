@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(8, 0)
   },
   postsGrid: {
-    marginTop: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column'
+    marginTop: theme.spacing(4)
   },
   paper: {
     padding: theme.spacing(2),
@@ -56,7 +54,7 @@ const BlogPage = ({ data, pageContext }) => {
         <Grid container spacing={4} className={classes.postsGrid}>
           {data.allMarkdownRemark.edges.map((edge) => {
             return (
-              <Grid item key={edge.node.fields.slug}>
+              <Grid item key={edge.node.fields.slug} xs={12}>
                 <Link to={`/blog/${edge.node.fields.slug}`} underline="none">
                   <Paper elevation={3} className={classes.paper}>
                     <Typography variant="h5" color="inherit" gutterBottom className={classes.title}>
