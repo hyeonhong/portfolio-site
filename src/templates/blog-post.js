@@ -1,7 +1,7 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography, Divider, Box, Grid } from '@material-ui/core';
+import { Container, Typography, Divider, Box, Grid, Button } from '@material-ui/core';
 import { DiscussionEmbed } from 'disqus-react';
 
 import Layout from '../components/Layout';
@@ -39,14 +39,21 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1rem'
       // backgroundColor: '#f6edfa'
     }
+  },
+  button: {
+    // fontSize: '1.25rem',
+    textTransform: 'none'
   }
 }));
 
-const Blog = (props) => {
-  const slug = props.data.markdownRemark.fields.slug;
-  const title = props.data.markdownRemark.frontmatter.title;
-  const date = props.data.markdownRemark.frontmatter.date;
-  const html = props.data.markdownRemark.html;
+const BlogPost = ({ data, pageContext }) => {
+  const slug = data.markdownRemark.fields.slug;
+  const title = data.markdownRemark.frontmatter.title;
+  const date = data.markdownRemark.frontmatter.date;
+  const html = data.markdownRemark.html;
+
+  const { currentPage } = pageContext;
+  const mainPage = currentPage === 1 ? '/blog' : `/blog/${currentPage}`;
 
   const disqusConfig = {
     shortname: process.env.GATSBY_DISQUS_NAME,
@@ -70,29 +77,35 @@ const Blog = (props) => {
           {date}
         </Typography>
         <div dangerouslySetInnerHTML={{ __html: html }} className={classes.html} />
-        <Box marginTop={8} />
+        <Box marginBottom={8} />
         <Divider />
-        <Box marginTop={3} />
+        <Box marginBottom={3} />
         <Bio />
-        <Box marginTop={3} />
+        <Box marginBottom={3} />
+        <Divider />
+        <Box marginBottom={6} />
 
-        <Grid align="center">
-          <Typography variant="h6">
-            <Link to="/blog" underline="none" color="primary">
-              Go Back to List
-            </Link>
-          </Typography>
+        <Grid container justify="center">
+          <Button
+            variant="contained"
+            color="primary"
+            align="center"
+            onClick={() => navigate(mainPage)}
+            className={classes.button}
+          >
+            ← Back to Main
+          </Button>
         </Grid>
 
         <Box marginTop={16} />
         <DiscussionEmbed {...disqusConfig} />
-        <Box marginBottom={24} />
+        <Box marginBottom={16} />
       </Container>
     </Layout>
   );
 };
 
-export default Blog;
+export default BlogPost;
 
 export const query = graphql`
   query($slug: String!) {

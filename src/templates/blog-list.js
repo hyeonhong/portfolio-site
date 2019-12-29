@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const BlogPage = ({ data, pageContext }) => {
+const BlogList = ({ data, pageContext }) => {
   const classes = useStyles();
   const [offset, setOffset] = React.useState(pageContext.skip);
 
@@ -54,7 +54,7 @@ const BlogPage = ({ data, pageContext }) => {
         <Grid container spacing={4} className={classes.postsGrid}>
           {data.allMarkdownRemark.edges.map((edge) => {
             return (
-              <Grid item key={edge.node.fields.slug} xs={12}>
+              <Grid item key={edge.node.id} xs={12}>
                 <Link to={`/blog/${edge.node.fields.slug}`} underline="none">
                   <Paper elevation={3} className={classes.paper}>
                     <Typography variant="h5" color="inherit" gutterBottom className={classes.title}>
@@ -83,7 +83,7 @@ const BlogPage = ({ data, pageContext }) => {
   );
 };
 
-export default BlogPage;
+export default BlogList;
 
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
@@ -94,6 +94,7 @@ export const query = graphql`
     ) {
       edges {
         node {
+          id
           frontmatter {
             title
             date(formatString: "MMMM DD, YYYY")
