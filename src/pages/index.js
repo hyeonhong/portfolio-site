@@ -99,10 +99,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
 
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth
-  },
+  appBar: {},
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
@@ -124,14 +121,14 @@ const useStyles = makeStyles((theme) => ({
     // padding: theme.spacing(3)
   },
   toolbar: theme.mixins.toolbar,
-  frontImage: {
+  heroImage: {
     // margin: 50,
     // width: 200,
     // height: 200,
 
     height: '100vh'
   },
-  foregroundText: {
+  foreground: {
     position: 'absolute',
     top: 0,
     zIndex: 1,
@@ -178,6 +175,11 @@ const IndexPage = () => {
           }
         }
       }
+      fullName: site {
+        siteMetadata {
+          author
+        }
+      }
     }
   `);
 
@@ -218,7 +220,7 @@ const IndexPage = () => {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" noWrap>
-                Hyeon Hong - Full Stack Developer
+                {data.fullName.siteMetadata.author}
               </Typography>
             </Toolbar>
           </AppBar>
@@ -258,7 +260,7 @@ const IndexPage = () => {
               style={{ display: 'flex', flexDirection: 'column' }}
             >
               <Typography variant="h5" align="center" noWrap>
-                {`Hyeon Hong`}
+                {data.fullName.siteMetadata.author}
               </Typography>
               <Box marginBottom={1} />
 
@@ -277,12 +279,18 @@ const IndexPage = () => {
         </Hidden>
 
         <main className={classes.content}>
-          <Img fluid={frontSources} className={classes.frontImage} alt="front-image" />
-          <Typography variant="h2" className={classes.foregroundText}>
-            {`Don't cry because it's over.`}
-            <br />
-            {`Be happy because it happened.`}
-          </Typography>
+          <Img fluid={frontSources} className={classes.heroImage} alt="front-image" />
+          <Box className={classes.foreground}>
+            <Hidden smUp>
+              <div className={classes.toolbar} />
+            </Hidden>
+
+            <Typography variant="h2" color="inherit">
+              {`Don't cry because it's over.`}
+              <br />
+              {`Be happy because it happened.`}
+            </Typography>
+          </Box>
 
           <Section id={'one'} />
           <Box marginBottom={2} />
