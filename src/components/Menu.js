@@ -55,6 +55,12 @@ const IndexPage = (props) => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleClick = () => {
+    document.getElementById('top').scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <>
       <Hidden smUp>
@@ -106,7 +112,7 @@ const IndexPage = (props) => {
           <ButtonBase
             // component="div"
             disableRipple
-            onClick={() => navigate('/')}
+            onClick={handleClick}
             style={{ display: 'flex', flexDirection: 'column' }}
           >
             <Typography variant="h5" align="center" color="primary" noWrap>

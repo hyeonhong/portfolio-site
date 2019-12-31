@@ -136,8 +136,7 @@ function DrawerList() {
     if (activeState !== hash) {
       setActiveState(hash);
 
-      window.scrollTo({
-        top: document.getElementById(hash).getBoundingClientRect().top + window.pageYOffset,
+      document.getElementById(hash).scrollIntoView({
         behavior: 'smooth'
       });
 

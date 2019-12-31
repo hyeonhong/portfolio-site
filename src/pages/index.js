@@ -150,7 +150,7 @@ const IndexPage = () => {
       <div className={classes.root}>
         <Menu drawerWidth={drawerWidth} />
 
-        <main className={classes.content}>
+        <main id="top" className={classes.content}>
           <Img fluid={frontSources} className={classes.heroImage} alt="front-image" />
           <Box className={classes.foreground}>
             <Hidden smUp>
