@@ -35,7 +35,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import NewLayout from '../components/NewLayout';
 import SEO from '../components/Seo';
-import Section from '../components/Section';
+import Banner from '../components/Banner';
 import projects from '../content/projects';
 
 const DrawerList = React.lazy(() => import('../components/DrawerList'));
@@ -139,6 +139,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`
     }
+  },
+  section: {
+    height: '100vh',
+    backgroundColor: 'yellow'
   }
 }));
 
@@ -292,13 +296,22 @@ const IndexPage = () => {
             </Typography>
           </Box>
 
-          <Section id={'one'} />
+          <section id="one" className={classes.section}>
+            <Banner title={'EXPERIENCE'} />
+          </section>
           <Box marginBottom={2} />
-          <Section id={'two'} />
+          <section id="two" className={classes.section}>
+            <Banner title={'PROJECTS'} />
+          </section>
           <Box marginBottom={2} />
-          <Section id={'three'} />
+          <section id="three" className={classes.section}>
+            <Banner title={'SKILLS'} />
+          </section>
           <Box marginBottom={2} />
-          <Section id={'four'} />
+          <section id="four" className={classes.section}>
+            <Banner title={'BLOG'} />
+          </section>
+          <Box marginBottom={2} />
         </main>
       </div>
       {/*       
