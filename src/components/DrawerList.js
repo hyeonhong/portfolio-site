@@ -1,3 +1,6 @@
+// original code:
+// https://github.com/mui-org/material-ui/blob/master/docs/src/modules/components/AppTableOfContents.js
+
 import React from 'react';
 import throttle from 'lodash/throttle';
 import { makeStyles } from '@material-ui/core/styles';
