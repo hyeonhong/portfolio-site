@@ -35,6 +35,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import NewLayout from '../components/NewLayout';
 import SEO from '../components/Seo';
+import Section from '../components/Section';
 import projects from '../content/projects';
 
 const DrawerList = React.lazy(() => import('../components/DrawerList'));
@@ -123,10 +124,6 @@ const useStyles = makeStyles((theme) => ({
     // padding: theme.spacing(3)
   },
   toolbar: theme.mixins.toolbar,
-  item: {
-    height: '100vh',
-    backgroundColor: 'red'
-  },
   frontImage: {
     // margin: 50,
     // width: 200,
@@ -138,10 +135,13 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 0,
     zIndex: 1,
-    width: `calc(100% - ${drawerWidth}px)`,
-    height: '100vh',
+    color: 'white',
     backgroundColor: 'rgba(0,0,0,0.4)',
-    color: 'white'
+    height: '100vh',
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    }
   }
 }));
 
@@ -203,8 +203,8 @@ const IndexPage = () => {
 
   return (
     <NewLayout>
+      <SEO title="Home" />
       <div className={classes.root}>
-        <SEO title="Home" />
         <Hidden smUp>
           <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
@@ -267,7 +267,7 @@ const IndexPage = () => {
               </Typography>
             </ButtonBase>
             <Box marginBottom={5} />
-
+            <Divider />
             {!isSSR && (
               <React.Suspense fallback={<div />}>
                 <DrawerList />
@@ -279,21 +279,18 @@ const IndexPage = () => {
         <main className={classes.content}>
           <Img fluid={frontSources} className={classes.frontImage} alt="front-image" />
           <Typography variant="h2" className={classes.foregroundText}>
-            hello world
+            {`Don't cry because it's over.`}
+            <br />
+            {`Be happy because it happened.`}
           </Typography>
 
-          <Typography id="one" paragraph className={classes.item}>
-            one
-          </Typography>
-          <Typography id="two" paragraph className={classes.item}>
-            two
-          </Typography>
-          <Typography id="three" paragraph className={classes.item}>
-            three
-          </Typography>
-          <Typography id="four" paragraph className={classes.item}>
-            four
-          </Typography>
+          <Section id={'one'} />
+          <Box marginBottom={2} />
+          <Section id={'two'} />
+          <Box marginBottom={2} />
+          <Section id={'three'} />
+          <Box marginBottom={2} />
+          <Section id={'four'} />
         </main>
       </div>
       {/*       

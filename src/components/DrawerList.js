@@ -86,14 +86,18 @@ function DrawerList() {
     let active;
     for (let i = itemsClientRef.current.length - 1; i >= 0; --i) {
       // No hash if we're near the top of the page
-      if (document.documentElement.scrollTop < 5) {
+      if (document.documentElement.scrollTop < 600) {
         active = { hash: null };
         break;
       }
 
       const item = itemsClientRef.current[i];
 
-      if (item.node && item.node.offsetTop < document.documentElement.scrollTop) {
+      if (
+        item.node &&
+        item.node.offsetTop <
+          document.documentElement.scrollTop + document.documentElement.clientHeight / 4
+      ) {
         active = item;
         break;
       }
