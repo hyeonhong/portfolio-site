@@ -99,11 +99,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      display: 'none'
-    }
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -112,10 +109,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0
-    }
+    width: drawerWidth,
+    flexShrink: 0
   },
   drawerPaper: {
     width: drawerWidth
@@ -143,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 0,
     zIndex: 1,
-    width: '100%',
+    width: `calc(100% - ${drawerWidth}px)`,
     height: '100vh',
     backgroundColor: 'rgba(0,0,0,0.4)',
     color: 'white'
@@ -210,78 +205,76 @@ const IndexPage = () => {
     <NewLayout>
       <div className={classes.root}>
         <SEO title="Home" />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Hyeon Hong - Full Stack Developer
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              variant="temporary"
-              anchor="left"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-              }}
-            >
-              {!isSSR && (
-                <React.Suspense fallback={<div />}>
-                  <DrawerList />
-                </React.Suspense>
-              )}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
-              <Box marginBottom={5} />
-              <ButtonBase
-                // component="div"
-                disableRipple
-                onClick={() => navigate('/')}
-                style={{ display: 'flex', flexDirection: 'column' }}
+        <Hidden smUp>
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                className={classes.menuButton}
               >
-                <Typography variant="h5" align="center" noWrap>
-                  {`Hyeon Hong`}
-                </Typography>
-                <Box marginBottom={1} />
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap>
+                Hyeon Hong - Full Stack Developer
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="temporary"
+            anchor="left"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            ModalProps={{
+              keepMounted: true // Better open performance on mobile.
+            }}
+          >
+            {!isSSR && (
+              <React.Suspense fallback={<div />}>
+                <DrawerList />
+              </React.Suspense>
+            )}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown>
+          <Drawer
+            variant="permanent"
+            anchor="left"
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            className={classes.drawer}
+          >
+            <Box marginBottom={5} />
+            <ButtonBase
+              // component="div"
+              disableRipple
+              onClick={() => navigate('/')}
+              style={{ display: 'flex', flexDirection: 'column' }}
+            >
+              <Typography variant="h5" align="center" noWrap>
+                {`Hyeon Hong`}
+              </Typography>
+              <Box marginBottom={1} />
 
-                <Typography variant="body1" align="center" noWrap>
-                  {`Full Stack Developer`}
-                </Typography>
-              </ButtonBase>
-              <Box marginBottom={5} />
+              <Typography variant="body1" align="center" noWrap>
+                {`Full Stack Developer`}
+              </Typography>
+            </ButtonBase>
+            <Box marginBottom={5} />
 
-              {!isSSR && (
-                <React.Suspense fallback={<div />}>
-                  <DrawerList />
-                </React.Suspense>
-              )}
-            </Drawer>
-          </Hidden>
-        </nav>
+            {!isSSR && (
+              <React.Suspense fallback={<div />}>
+                <DrawerList />
+              </React.Suspense>
+            )}
+          </Drawer>
+        </Hidden>
 
         <main className={classes.content}>
           <Img fluid={frontSources} className={classes.frontImage} alt="front-image" />

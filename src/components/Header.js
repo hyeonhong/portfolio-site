@@ -57,8 +57,7 @@ const Header = () => {
 
   const tabs = [
     { label: 'Home', path: '/' },
-    { label: 'Blog', path: '/blog' },
-    { label: 'About', path: '/about' }
+    { label: 'Blog', path: '/blog' }
   ];
 
   const classes = useStyles();
