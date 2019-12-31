@@ -56,7 +56,7 @@ const IndexPage = (props) => {
   };
 
   const handleClick = () => {
-    document.getElementById('top').scrollIntoView({
+    document.getElementsByTagName('body')[0].scrollIntoView({
       behavior: 'smooth'
     });
   };
