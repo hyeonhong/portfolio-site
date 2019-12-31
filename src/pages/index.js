@@ -148,7 +148,7 @@ const IndexPage = () => {
     <NewLayout>
       <SEO title="Home" />
       <div className={classes.root}>
-        <Menu />
+        <Menu drawerWidth={drawerWidth} />
 
         <main className={classes.content}>
           <Img fluid={frontSources} className={classes.heroImage} alt="front-image" />

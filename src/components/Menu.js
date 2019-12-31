@@ -17,8 +17,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const DrawerList = React.lazy(() => import('./DrawerList'));
 
-const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   appBar: {},
   menuButton: {
@@ -28,15 +26,15 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   drawer: {
-    width: drawerWidth,
+    width: (props) => props.drawerWidth,
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    width: (props) => props.drawerWidth
   }
 }));
 
-const IndexPage = () => {
+const IndexPage = (props) => {
   const isSSR = typeof window === 'undefined';
 
   const data = useStaticQuery(graphql`
@@ -49,7 +47,7 @@ const IndexPage = () => {
     }
   `);
 
-  const classes = useStyles();
+  const classes = useStyles(props);
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
