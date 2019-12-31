@@ -1,21 +1,45 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, navigate, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, AppBar, Toolbar, Typography, Tabs, Tab } from '@material-ui/core';
+import {
+  Container,
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  Typography,
+  MenuList,
+  MenuItem
+} from '@material-ui/core';
+
 import Link from '../components/Link';
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    flexGrow: 1,
-    fontFamily: 'Montserrat'
+    justifyContent: 'start',
+    textTransform: 'none',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem'
+    },
+    padding: 0
   },
-  titleLink: {
-    color: theme.palette.primary.contrastText
+  filler: {
+    flexGrow: 1
   },
-  tab: {
-    fontSize: '1rem',
+  menuList: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 0
+  },
+  menuItem: {
+    // display: 'flex',
+    justifyContent: 'center',
     minWidth: 100,
-    width: 100
+    borderRadius: 8,
+    [theme.breakpoints.down('xs')]: {
+      padding: 8,
+      minWidth: 50
+    }
   }
 }));
 
@@ -25,53 +49,42 @@ const Header = () => {
       site {
         siteMetadata {
           author
+          title
         }
       }
     }
   `);
 
-  const allTabs = [
-    { label: 'Home', path: '/old' },
-    { label: 'Blog', path: '/blog' }
+  const tabs = [
+    { label: 'Home', path: '/' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'About', path: '/about' }
   ];
-  const currentIndex = allTabs.findIndex((tab) => tab.path === window.location.pathname);
 
   const classes = useStyles();
-  const [value, setValue] = React.useState(currentIndex);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <AppBar position="sticky">
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Toolbar variant="dense" disableGutters>
-          <Typography variant="h6" className={classes.title}>
-            <Link to="/" underline="none" className={classes.titleLink}>
-              {data.site.siteMetadata.author}
-            </Link>
-          </Typography>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            // TabIndicatorProps={{
-            //   style: {
-            //     backgroundColor: '#19857b'
-            //   }
-            // }}
-          >
-            {allTabs.map((tab) => (
-              <Tab
+          <Button onClick={() => navigate('/')} color="inherit" className={classes.title}>
+            <Typography variant="h6" color="inherit">
+              {data.site.siteMetadata.title}
+            </Typography>
+          </Button>
+          <Box className={classes.filler} />
+          <MenuList className={classes.menuList}>
+            {tabs.map((tab) => (
+              <MenuItem
                 key={tab.label}
-                label={tab.label}
-                to={tab.path}
-                underline="none"
-                component={Link}
-                className={classes.tab}
-              />
+                button
+                onClick={() => navigate(tab.path)}
+                className={classes.menuItem}
+              >
+                <Typography variant="inherit">{tab.label}</Typography>
+              </MenuItem>
             ))}
-          </Tabs>
+          </MenuList>
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, navigate } from 'gatsby';
 import Img from 'gatsby-image';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -18,7 +18,7 @@ import {
   CardContent,
   CardMedia,
   Box,
-  Link as MuiLink
+  ButtonBase
 } from '@material-ui/core';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -34,9 +34,10 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 // import { faFile } from '@fortawesome/free-regular-svg-icons';
 
 import NewLayout from '../components/NewLayout';
-import DrawerList from '../components/DrawerList';
 import SEO from '../components/Seo';
 import projects from '../content/projects';
+
+const DrawerList = React.lazy(() => import('../components/DrawerList'));
 
 const drawerWidth = 240;
 
@@ -150,6 +151,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const IndexPage = () => {
+  const isSSR = typeof window === 'undefined';
+
   const data = useStaticQuery(graphql`
     query {
       frontMobile: file(relativePath: { eq: "front-mobile.jpg" }) {
@@ -238,7 +241,11 @@ const IndexPage = () => {
                 keepMounted: true // Better open performance on mobile.
               }}
             >
-              <DrawerList />
+              {!isSSR && (
+                <React.Suspense fallback={<div />}>
+                  <DrawerList />
+                </React.Suspense>
+              )}
             </Drawer>
           </Hidden>
           <Hidden xsDown implementation="css">
@@ -249,14 +256,36 @@ const IndexPage = () => {
               variant="permanent"
               open
             >
-              <DrawerList />
+              <Box marginBottom={5} />
+              <ButtonBase
+                // component="div"
+                disableRipple
+                onClick={() => navigate('/')}
+                style={{ display: 'flex', flexDirection: 'column' }}
+              >
+                <Typography variant="h5" align="center" noWrap>
+                  {`Hyeon Hong`}
+                </Typography>
+                <Box marginBottom={1} />
+
+                <Typography variant="body1" align="center" noWrap>
+                  {`Full Stack Developer`}
+                </Typography>
+              </ButtonBase>
+              <Box marginBottom={5} />
+
+              {!isSSR && (
+                <React.Suspense fallback={<div />}>
+                  <DrawerList />
+                </React.Suspense>
+              )}
             </Drawer>
           </Hidden>
         </nav>
 
         <main className={classes.content}>
           <Img fluid={frontSources} className={classes.frontImage} alt="front-image" />
-          <Typography h2 className={classes.foregroundText}>
+          <Typography variant="h2" className={classes.foregroundText}>
             hello world
           </Typography>
 
