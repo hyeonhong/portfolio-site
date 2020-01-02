@@ -1,18 +1,4 @@
 const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
-
-module.exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-
-  if (node.internal.type === 'MarkdownRemark') {
-    const slug = createFilePath({ node, getNode });
-    createNodeField({
-      node,
-      name: 'slug',
-      value: slug
-    });
-  }
-};
 
 module.exports.createPages = async ({ graphql, actions }) => {
   const POSTS_PER_PAGE = 4;
@@ -20,12 +6,10 @@ module.exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`
     query {
-      allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
+      allContentfulBlogPost(sort: { fields: publishedDate, order: DESC }, limit: 1000) {
         edges {
           node {
-            fields {
-              slug
-            }
+            slug
           }
         }
       }
@@ -37,7 +21,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create blog-list pages
-  const posts = result.data.allMarkdownRemark.edges;
+  const posts = result.data.allContentfulBlogPost.edges;
   const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   for (let i = 0; i < numPages; ++i) {
     createPage({
@@ -53,12 +37,12 @@ module.exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create blog post pages
-  result.data.allMarkdownRemark.edges.forEach((edge, index) => {
+  result.data.allContentfulBlogPost.edges.forEach((edge, index) => {
     createPage({
       component: path.resolve('./src/templates/blog-post.js'),
-      path: '/blog' + edge.node.fields.slug,
+      path: `/blog/${edge.node.slug}`,
       context: {
-        slug: edge.node.fields.slug,
+        slug: edge.node.slug,
         currentPage: Math.floor(index / POSTS_PER_PAGE) + 1
       }
     });

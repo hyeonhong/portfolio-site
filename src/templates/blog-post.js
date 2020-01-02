@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, navigate } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Typography, Divider, Box, Grid, Button } from '@material-ui/core';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { DiscussionEmbed } from 'disqus-react';
 
 import Layout from '../components/Layout';
@@ -43,14 +44,30 @@ const useStyles = makeStyles((theme) => ({
   button: {
     // fontSize: '1.25rem',
     textTransform: 'none'
+  },
+  image: {
+    maxWidth: 500,
+    maxHeight: 500
   }
 }));
 
 const BlogPost = ({ data, pageContext }) => {
-  const slug = data.markdownRemark.fields.slug;
-  const title = data.markdownRemark.frontmatter.title;
-  const date = data.markdownRemark.frontmatter.date;
-  const html = data.markdownRemark.html;
+  const classes = useStyles();
+
+  const slug = data.contentfulBlogPost.slug;
+  const title = data.contentfulBlogPost.title;
+  const date = data.contentfulBlogPost.date;
+
+  const options = {
+    renderNode: {
+      'embedded-asset-block': (node) => {
+        const url = node.data.target.fields.file['en-US'].url;
+        const alt = node.data.target.fields.title['en-US'];
+        return <img src={url} alt={alt} className={classes.image} />;
+      }
+    }
+  };
+  const reactComponents = documentToReactComponents(data.contentfulBlogPost.body.json, options);
 
   const { currentPage } = pageContext;
   const mainPage = currentPage === 1 ? '/blog' : `/blog/${currentPage}`;
@@ -63,8 +80,6 @@ const BlogPost = ({ data, pageContext }) => {
     }
   };
 
-  const classes = useStyles();
-
   return (
     <Layout headerTabValue={1}>
       <SEO title={title} />
@@ -76,7 +91,8 @@ const BlogPost = ({ data, pageContext }) => {
         <Typography variant="body2" className={classes.date}>
           {date}
         </Typography>
-        <div dangerouslySetInnerHTML={{ __html: html }} className={classes.html} />
+        {/* <div dangerouslySetInnerHTML={{ __html: html }} className={classes.html} /> */}
+        {reactComponents}
         <Box marginBottom={8} />
         <Divider />
         <Box marginBottom={3} />
@@ -109,14 +125,12 @@ export default BlogPost;
 
 export const query = graphql`
   query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-      }
-      html
-      fields {
-        slug
+    contentfulBlogPost(slug: { eq: $slug }) {
+      title
+      slug
+      publishedDate(formatString: "MMMM DD, YYYY")
+      body {
+        json
       }
     }
   }
