@@ -84,7 +84,7 @@ module.exports = {
         trackingId: 'UA-153659862-1'
       }
     },
-    'gatsby-plugin-material-ui',
-    'gatsby-plugin-offline' // Must be placed at the end
+    'gatsby-plugin-material-ui'
+    // 'gatsby-plugin-offline' // Must be placed at the end
   ]
 };
