@@ -55,7 +55,6 @@ module.exports = {
         icon: 'src/images/favicon.png' // This path is relative to the root of the site.
       }
     },
-    'gatsby-plugin-material-ui',
     {
       resolve: 'gatsby-plugin-prefetch-google-fonts',
       options: {
@@ -84,6 +83,8 @@ module.exports = {
       options: {
         trackingId: 'UA-153659862-1'
       }
-    }
+    },
+    'gatsby-plugin-material-ui',
+    'gatsby-plugin-offline' // Must be placed at the end
   ]
 };
