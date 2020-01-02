@@ -52,16 +52,16 @@ const BlogList = ({ data, pageContext }) => {
           Posts
         </Typography>
         <Grid container spacing={4} className={classes.postsGrid}>
-          {data.allContentfulBlogPost.edges.map((edge) => {
+          {data.allMarkdownRemark.edges.map((edge) => {
             return (
               <Grid item key={edge.node.id} xs={12}>
-                <Link to={`/blog/${edge.node.slug}`} underline="none">
+                <Link to={`/blog/${edge.node.fields.slug}`} underline="none">
                   <Paper elevation={3} className={classes.paper}>
                     <Typography variant="h5" color="inherit" gutterBottom className={classes.title}>
-                      {edge.node.title}
+                      {edge.node.frontmatter.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      {edge.node.publishedDate}
+                      {edge.node.frontmatter.date}
                     </Typography>
                   </Paper>
                 </Link>
@@ -87,17 +87,21 @@ export default BlogList;
 
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
-    allContentfulBlogPost(
-      sort: { fields: publishedDate, order: DESC }
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
       skip: $skip
       limit: $limit
     ) {
       edges {
         node {
           id
-          title
-          slug
-          publishedDate(formatString: "MMMM DD, YYYY")
+          frontmatter {
+            title
+            date(formatString: "MMMM DD, YYYY")
+          }
+          fields {
+            slug
+          }
         }
       }
     }
