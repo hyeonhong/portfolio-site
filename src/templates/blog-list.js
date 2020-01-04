@@ -1,19 +1,8 @@
 import React from 'react';
 import { graphql, navigate } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Container,
-  Typography,
-  Paper,
-  Grid,
-  Box,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardMedia,
-  CardContent,
-  Button
-} from '@material-ui/core';
+import { Container, Typography, Paper, Grid, Box } from '@material-ui/core';
+import Pagination from 'material-ui-flat-pagination';
 
 import Link from '../components/Link';
 import Layout from '../components/Layout';
@@ -26,8 +15,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   mainHead: {
-    margin: theme.spacing(8, 0),
-    fontFamily: 'Lora'
+    margin: theme.spacing(8, 0)
   },
   postsGrid: {
     marginTop: theme.spacing(4)
@@ -41,46 +29,39 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontWeight: 500
-  },
-  button: {
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1rem'
-    },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '1.25rem'
-    },
-    textTransform: 'none'
   }
 }));
 
 const BlogList = ({ data, pageContext }) => {
   const classes = useStyles();
+  const [offset, setOffset] = React.useState(pageContext.skip);
 
-  const { currentPage, numPages } = pageContext;
-  const isFirst = currentPage === 1;
-  const isLast = currentPage === numPages;
-  const prevPage = currentPage - 1 <= 1 ? '/blog' : `/blog/${currentPage - 1}`;
-  const nextPage = `/blog/${currentPage + 1}`;
+  const handleClick = (event, newOffset) => {
+    const newPage = newOffset / pageContext.limit + 1;
+    const newPath = newPage === 1 ? '/blog' : `/blog/${newPage}/`;
+    navigate(newPath);
+    setOffset(newOffset);
+  };
 
   return (
-    <Layout>
+    <Layout headerTabValue={1}>
       <SEO title="Blog" />
 
       <Container maxWidth="md">
         <Typography variant="h4" color="primary" className={classes.mainHead}>
-          — Recent posts
+          Posts
         </Typography>
         <Grid container spacing={4} className={classes.postsGrid}>
-          {data.allGhostPost.edges.map((edge) => {
+          {data.allMarkdownRemark.edges.map((edge) => {
             return (
               <Grid item key={edge.node.id} xs={12}>
-                <Link to={`/blog/${edge.node.slug}`} underline="none">
+                <Link to={`/blog/${edge.node.fields.slug}`} underline="none">
                   <Paper elevation={3} className={classes.paper}>
                     <Typography variant="h5" color="inherit" gutterBottom className={classes.title}>
-                      {edge.node.title}
+                      {edge.node.frontmatter.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      {edge.node.published_at}
+                      {edge.node.frontmatter.date}
                     </Typography>
                   </Paper>
                 </Link>
@@ -89,30 +70,13 @@ const BlogList = ({ data, pageContext }) => {
           })}
         </Grid>
         <Box marginBottom={10} />
-        <Grid container justify="space-between">
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={isFirst}
-              onClick={() => navigate(prevPage)}
-              className={classes.button}
-            >
-              ← Newer Posts
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={isLast}
-              onClick={() => navigate(nextPage)}
-              className={classes.button}
-            >
-              Older Posts →
-            </Button>
-          </Grid>
-        </Grid>
+        <Pagination
+          align="center"
+          limit={pageContext.limit}
+          offset={offset}
+          total={pageContext.numPages * pageContext.limit}
+          onClick={handleClick}
+        />
         <Box marginBottom={10} />
       </Container>
     </Layout>
@@ -123,13 +87,21 @@ export default BlogList;
 
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
-    allGhostPost(sort: { fields: published_at, order: DESC }, skip: $skip, limit: $limit) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
       edges {
         node {
           id
-          title
-          published_at(formatString: "MMMM DD, YYYY")
-          slug
+          frontmatter {
+            title
+            date(formatString: "MMMM DD, YYYY")
+          }
+          fields {
+            slug
+          }
         }
       }
     }

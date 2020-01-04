@@ -1,14 +1,31 @@
 const path = require('path');
-const { postsPerPage } = require('./src/utils/siteConfig');
+const { createFilePath } = require('gatsby-source-filesystem');
 
-module.exports.createPages = async ({ graphql, actions, reporter }) => {
+module.exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === 'MarkdownRemark') {
+    const slug = createFilePath({ node, getNode });
+    createNodeField({
+      node,
+      name: 'slug',
+      value: slug
+    });
+  }
+};
+
+module.exports.createPages = async ({ graphql, actions }) => {
+  const POSTS_PER_PAGE = 4;
+
   const { createPage } = actions;
   const result = await graphql(`
     query {
-      allGhostPost(sort: { fields: published_at, order: DESC }) {
+      allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
         edges {
           node {
-            slug
+            fields {
+              slug
+            }
           }
         }
       }
@@ -16,19 +33,19 @@ module.exports.createPages = async ({ graphql, actions, reporter }) => {
   `);
 
   if (result.errors) {
-    reporter.panicOnBuild(`Error while running GraphQL query.`);
+    throw result.errors;
   }
 
   // Create blog-list pages
-  const posts = result.data.allGhostPost.edges;
-  const numPages = Math.ceil(posts.length / postsPerPage);
+  const posts = result.data.allMarkdownRemark.edges;
+  const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   for (let i = 0; i < numPages; ++i) {
     createPage({
       path: i === 0 ? '/blog' : `/blog/${i + 1}`,
       component: path.resolve('./src/templates/blog-list.js'),
       context: {
-        limit: postsPerPage,
-        skip: i * postsPerPage,
+        limit: POSTS_PER_PAGE,
+        skip: i * POSTS_PER_PAGE,
         numPages,
         currentPage: i + 1
       }
@@ -36,13 +53,13 @@ module.exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Create blog post pages
-  result.data.allGhostPost.edges.forEach((edge, index) => {
+  result.data.allMarkdownRemark.edges.forEach((edge, index) => {
     createPage({
       component: path.resolve('./src/templates/blog-post.js'),
-      path: `/blog/${edge.node.slug}`,
+      path: '/blog' + edge.node.fields.slug,
       context: {
-        slug: edge.node.slug,
-        currentPage: Math.floor(index / postsPerPage) + 1
+        slug: edge.node.fields.slug,
+        currentPage: Math.floor(index / POSTS_PER_PAGE) + 1
       }
     });
   });
