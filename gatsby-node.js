@@ -1,31 +1,14 @@
 const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
+const { postsPerPage } = require('./src/utils/siteConfig');
 
-module.exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-
-  if (node.internal.type === 'MarkdownRemark') {
-    const slug = createFilePath({ node, getNode });
-    createNodeField({
-      node,
-      name: 'slug',
-      value: slug
-    });
-  }
-};
-
-module.exports.createPages = async ({ graphql, actions }) => {
-  const POSTS_PER_PAGE = 4;
-
+module.exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const result = await graphql(`
     query {
-      allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
+      allGhostPost(sort: { fields: published_at, order: DESC }) {
         edges {
           node {
-            fields {
-              slug
-            }
+            slug
           }
         }
       }
@@ -33,19 +16,19 @@ module.exports.createPages = async ({ graphql, actions }) => {
   `);
 
   if (result.errors) {
-    throw result.errors;
+    reporter.panicOnBuild(`Error while running GraphQL query.`);
   }
 
   // Create blog-list pages
-  const posts = result.data.allMarkdownRemark.edges;
-  const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const posts = result.data.allGhostPost.edges;
+  const numPages = Math.ceil(posts.length / postsPerPage);
   for (let i = 0; i < numPages; ++i) {
     createPage({
       path: i === 0 ? '/blog' : `/blog/${i + 1}`,
       component: path.resolve('./src/templates/blog-list.js'),
       context: {
-        limit: POSTS_PER_PAGE,
-        skip: i * POSTS_PER_PAGE,
+        limit: postsPerPage,
+        skip: i * postsPerPage,
         numPages,
         currentPage: i + 1
       }
@@ -53,13 +36,13 @@ module.exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create blog post pages
-  result.data.allMarkdownRemark.edges.forEach((edge, index) => {
+  result.data.allGhostPost.edges.forEach((edge, index) => {
     createPage({
       component: path.resolve('./src/templates/blog-post.js'),
-      path: '/blog' + edge.node.fields.slug,
+      path: `/blog/${edge.node.slug}`,
       context: {
-        slug: edge.node.fields.slug,
-        currentPage: Math.floor(index / POSTS_PER_PAGE) + 1
+        slug: edge.node.slug,
+        currentPage: Math.floor(index / postsPerPage) + 1
       }
     });
   });

@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql, navigate } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Typography, Divider, Box, Grid, Button } from '@material-ui/core';
 import { DiscussionEmbed } from 'disqus-react';
 
 import Layout from '../components/Layout';
-import Link from '../components/Link';
 import SEO from '../components/Seo';
 import Bio from '../components/Bio';
 
@@ -23,10 +23,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4)
   },
   html: {
+    '& img': {
+      maxWidth: '100%'
+    },
     '& p': {
       '& code': {
-        fontSize: '1rem'
-        // backgroundColor: '#f6f8fa'
+        fontSize: '1rem',
+        backgroundColor: '#f6f8fa'
       },
       fontSize: '1rem'
     },
@@ -36,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
       }
     },
     '& pre': {
-      fontSize: '1rem'
-      // backgroundColor: '#f6edfa'
+      fontSize: '1rem',
+      backgroundColor: '#f6edfa'
     }
   },
   button: {
@@ -47,10 +50,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BlogPost = ({ data, pageContext }) => {
-  const slug = data.markdownRemark.fields.slug;
-  const title = data.markdownRemark.frontmatter.title;
-  const date = data.markdownRemark.frontmatter.date;
-  const html = data.markdownRemark.html;
+  const { ghostPost } = data;
+  const { slug, title, published_at, html } = ghostPost;
 
   const { currentPage } = pageContext;
   const mainPage = currentPage === 1 ? '/blog' : `/blog/${currentPage}`;
@@ -66,17 +67,17 @@ const BlogPost = ({ data, pageContext }) => {
   const classes = useStyles();
 
   return (
-    <Layout headerTabValue={1}>
+    <Layout>
       <SEO title={title} />
-
       <Container maxWidth="md">
         <Typography variant="h4" className={classes.title}>
           {title}
         </Typography>
         <Typography variant="body2" className={classes.date}>
-          {date}
+          {published_at}
         </Typography>
-        <div dangerouslySetInnerHTML={{ __html: html }} className={classes.html} />
+        {/* The main post content */}
+        <section dangerouslySetInnerHTML={{ __html: html }} className={classes.html} />
         <Box marginBottom={8} />
         <Divider />
         <Box marginBottom={3} />
@@ -105,19 +106,27 @@ const BlogPost = ({ data, pageContext }) => {
   );
 };
 
+BlogPost.propTypes = {
+  data: PropTypes.shape({
+    ghostPost: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      published_at: PropTypes.string.isRequired,
+      html: PropTypes.string.isRequired
+      // feature_image: PropTypes.string
+    }).isRequired
+  }).isRequired
+};
+
 export default BlogPost;
 
 export const query = graphql`
   query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-      }
+    ghostPost(slug: { eq: $slug }) {
+      slug
+      title
+      published_at(formatString: "MMMM DD, YYYY")
       html
-      fields {
-        slug
-      }
     }
   }
 `;

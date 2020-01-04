@@ -10,6 +10,14 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: 'gatsby-source-ghost',
+      options: {
+        apiUrl: 'https://admin.hyeonhong.io',
+        contentApiKey: process.env.GHOST_CONTENT_API_KEY,
+        version: 'v3'
+      }
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
@@ -38,8 +46,7 @@ module.exports = {
               maxWidth: 500,
               linkImagesToOriginal: false
             }
-          },
-          'gatsby-remark-prismjs'
+          }
         ]
       }
     },
@@ -70,6 +77,10 @@ module.exports = {
           {
             family: 'Lato',
             variants: ['300', '400', '700']
+          },
+          {
+            family: 'Lora',
+            variants: ['400', '700']
           }
           // {
           //   family: 'Open Sans',
