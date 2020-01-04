@@ -70,6 +70,10 @@ module.exports = {
           {
             family: 'Lato',
             variants: ['300', '400', '700']
+          },
+          {
+            family: 'Lora',
+            variants: ['400', '700']
           }
           // {
           //   family: 'Open Sans',

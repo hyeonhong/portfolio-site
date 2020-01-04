@@ -66,7 +66,7 @@ const BlogPost = ({ data, pageContext }) => {
   const classes = useStyles();
 
   return (
-    <Layout headerTabValue={1}>
+    <Layout>
       <SEO title={title} />
 
       <Container maxWidth="md">

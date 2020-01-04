@@ -1,5 +1,6 @@
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
+const { postsPerPage } = require('./src/utils/siteConfig');
 
 module.exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -14,9 +15,7 @@ module.exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
-module.exports.createPages = async ({ graphql, actions }) => {
-  const POSTS_PER_PAGE = 4;
-
+module.exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const result = await graphql(`
     query {
@@ -33,19 +32,19 @@ module.exports.createPages = async ({ graphql, actions }) => {
   `);
 
   if (result.errors) {
-    throw result.errors;
+    reporter.panicOnBuild(`Error while running GraphQL query.`);
   }
 
   // Create blog-list pages
   const posts = result.data.allMarkdownRemark.edges;
-  const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const numPages = Math.ceil(posts.length / postsPerPage);
   for (let i = 0; i < numPages; ++i) {
     createPage({
       path: i === 0 ? '/blog' : `/blog/${i + 1}`,
       component: path.resolve('./src/templates/blog-list.js'),
       context: {
-        limit: POSTS_PER_PAGE,
-        skip: i * POSTS_PER_PAGE,
+        limit: postsPerPage,
+        skip: i * postsPerPage,
         numPages,
         currentPage: i + 1
       }
@@ -59,7 +58,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
       path: '/blog' + edge.node.fields.slug,
       context: {
         slug: edge.node.fields.slug,
-        currentPage: Math.floor(index / POSTS_PER_PAGE) + 1
+        currentPage: Math.floor(index / postsPerPage) + 1
       }
     });
   });

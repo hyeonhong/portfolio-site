@@ -1,8 +1,19 @@
 import React from 'react';
 import { graphql, navigate } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography, Paper, Grid, Box } from '@material-ui/core';
-import Pagination from 'material-ui-flat-pagination';
+import {
+  Container,
+  Typography,
+  Paper,
+  Grid,
+  Box,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardMedia,
+  CardContent,
+  Button
+} from '@material-ui/core';
 
 import Link from '../components/Link';
 import Layout from '../components/Layout';
@@ -15,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   mainHead: {
-    margin: theme.spacing(8, 0)
+    margin: theme.spacing(8, 0),
+    fontFamily: 'Lora'
   },
   postsGrid: {
     marginTop: theme.spacing(4)
@@ -29,27 +41,34 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontWeight: 500
+  },
+  button: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem'
+    },
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '1.25rem'
+    },
+    textTransform: 'none'
   }
 }));
 
 const BlogList = ({ data, pageContext }) => {
   const classes = useStyles();
-  const [offset, setOffset] = React.useState(pageContext.skip);
 
-  const handleClick = (event, newOffset) => {
-    const newPage = newOffset / pageContext.limit + 1;
-    const newPath = newPage === 1 ? '/blog' : `/blog/${newPage}/`;
-    navigate(newPath);
-    setOffset(newOffset);
-  };
+  const { currentPage, numPages } = pageContext;
+  const isFirst = currentPage === 1;
+  const isLast = currentPage === numPages;
+  const prevPage = currentPage - 1 <= 1 ? '/blog' : `/blog/${currentPage - 1}`;
+  const nextPage = `/blog/${currentPage + 1}`;
 
   return (
-    <Layout headerTabValue={1}>
+    <Layout>
       <SEO title="Blog" />
 
       <Container maxWidth="md">
         <Typography variant="h4" color="primary" className={classes.mainHead}>
-          Posts
+          — Recent posts
         </Typography>
         <Grid container spacing={4} className={classes.postsGrid}>
           {data.allMarkdownRemark.edges.map((edge) => {
@@ -70,13 +89,30 @@ const BlogList = ({ data, pageContext }) => {
           })}
         </Grid>
         <Box marginBottom={10} />
-        <Pagination
-          align="center"
-          limit={pageContext.limit}
-          offset={offset}
-          total={pageContext.numPages * pageContext.limit}
-          onClick={handleClick}
-        />
+        <Grid container justify="space-between">
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={isFirst}
+              onClick={() => navigate(prevPage)}
+              className={classes.button}
+            >
+              ← Newer Posts
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={isLast}
+              onClick={() => navigate(nextPage)}
+              className={classes.button}
+            >
+              Older Posts →
+            </Button>
+          </Grid>
+        </Grid>
         <Box marginBottom={10} />
       </Container>
     </Layout>

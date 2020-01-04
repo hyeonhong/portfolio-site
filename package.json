@@ -4,9 +4,9 @@
   "author": "Hyeon Hong",
   "scripts": {
     "build": "gatsby clean && gatsby build",
-    "develop": "gatsby clean && gatsby develop",
+    "dev": "gatsby clean && gatsby develop",
     "deploy": "aws s3 sync public/. s3://hyeonhong-io.app",
-    "start": "npm run develop",
+    "start": "yarn run dev",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
@@ -36,7 +36,6 @@
     "gatsby-transformer-remark": "^2.6.45",
     "gatsby-transformer-sharp": "^2.3.9",
     "lodash": "^4.17.15",
-    "material-ui-flat-pagination": "^4.0.0",
     "node-sass": "^4.13.0",
     "prismjs": "^1.17.1",
     "prop-types": "^15.7.2",
