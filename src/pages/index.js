@@ -26,6 +26,7 @@ import NewLayout from '../components/NewLayout';
 import SEO from '../components/Seo';
 import Menu from '../components/Menu';
 import Banner from '../components/Banner';
+import { useAllImages } from '../hooks/use-all-images';
 import projects from '../content/projects';
 
 const drawerWidth = 240;
@@ -39,8 +40,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
   },
-  content: {
-    flexGrow: 1
+  main: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column'
     // padding: theme.spacing(3)
   },
   heroImage: {
@@ -64,7 +67,10 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   section: {
-    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    // height: '100vh',
     backgroundColor: 'yellow'
   },
   sectionContent: {
@@ -75,28 +81,28 @@ const useStyles = makeStyles((theme) => ({
     // justifyContent: 'center',
     padding: theme.spacing(3),
     maxWidth: 768
+  },
+  projectGrid: {
+    maxWidth: 960
+  },
+  card: {
+    height: '100%'
+    // flexGrow: 1
+    // display: 'flex',
+    // flexDirection: 'column'
+  },
+  cardMedia: {
+    height: 0,
+    paddingTop: '56.25%' // 16:9
+  },
+  cardContent: {
+    flexGrow: 1
   }
-
-  // gridTitle: {
-  //   padding: theme.spacing(8, 0, 6)
-  // },
-  // cardGrid: {
-  //   paddingTop: theme.spacing(8)
-  // },
-  // card: {
-  //   height: '100%',
-  //   display: 'flex',
-  //   flexDirection: 'column'
-  // },
-  // cardMedia: {
-  //   paddingTop: '56.25%' // 16:9
-  // },
-  // cardContent: {
-  //   flexGrow: 1
-  // },
 }));
 
 const IndexPage = () => {
+  const classes = useStyles();
+
   const data = useStaticQuery(graphql`
     query {
       frontMobile: file(relativePath: { eq: "front-mobile.jpg" }) {
@@ -142,7 +148,12 @@ const IndexPage = () => {
     }
   ];
 
-  const classes = useStyles();
+  // For faster search, build hashtable
+  const projectImageSrcs = {};
+  const allImages = useAllImages(); // using hook
+  allImages.forEach((edge) => {
+    projectImageSrcs[edge.node.name] = edge.node.childImageSharp.fluid.src;
+  });
 
   return (
     <NewLayout>
@@ -150,7 +161,7 @@ const IndexPage = () => {
       <div className={classes.root}>
         <Menu drawerWidth={drawerWidth} />
 
-        <main className={classes.content}>
+        <main className={classes.main}>
           <Img fluid={frontSources} className={classes.heroImage} alt="front-image" />
           <Box className={classes.foreground}>
             <Hidden smUp>
@@ -176,14 +187,54 @@ const IndexPage = () => {
               </Box>
             </Grid>
           </section>
+
           <section id="two" className={classes.section}>
             <Banner title={'PROJECTS'} />
+            <Container maxWidth="md" className={classes.sectionContent}>
+              <Grid container spacing={4}>
+                {projects.map((project, index) => (
+                  <Grid item key={index} xs={12} sm={6} md={4}>
+                    <Card className={classes.card}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.cardMedia}
+                          image={projectImageSrcs[project.imageName]}
+                          title={project.heading}
+                        />
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5">
+                            {project.heading}
+                          </Typography>
+                          <Typography variant="body1">{project.content}</Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions>
+                        <Button
+                          variant="outlined"
+                          size="medium"
+                          color="primary"
+                          href={project.gitSrc}
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          View it on GitHub
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Container>
           </section>
+
           <section id="three" className={classes.section}>
             <Banner title={'SKILLS'} />
+            <div className={classes.sectionContent}></div>
           </section>
+
           <section id="four" className={classes.section}>
             <Banner title={'EDUCATION'} />
+            <div className={classes.sectionContent}></div>
           </section>
         </main>
       </div>
