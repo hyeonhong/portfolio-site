@@ -39,7 +39,15 @@ module.exports = {
               linkImagesToOriginal: false
             }
           },
-          'gatsby-remark-prismjs'
+          {
+            resolve: 'gatsby-remark-vscode',
+            options: {
+              colorTheme: {
+                defaultTheme: 'Solarized Light', // Required
+                prefersDarkTheme: 'Dark+ (default dark)'
+              }
+            }
+          }
         ]
       }
     },
