@@ -19,11 +19,12 @@ import {
   CardMedia,
   Box,
   ButtonBase,
-  Paper
+  Paper,
+  Link as MuiLink
 } from '@material-ui/core';
 
-import NewLayout from '../components/NewLayout';
 import SEO from '../components/Seo';
+import NewLayout from '../components/NewLayout';
 import Menu from '../components/Menu';
 import Banner from '../components/Banner';
 import { useAllImages } from '../hooks/use-all-images';
@@ -74,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'yellow'
   },
   sectionContent: {
-    margin: theme.spacing(8, 0, 6)
+    margin: theme.spacing(8, 0, 8)
   },
   paper: {
     // display: 'flex',
@@ -194,33 +195,41 @@ const IndexPage = () => {
               <Grid container spacing={4}>
                 {projects.map((project, index) => (
                   <Grid item key={index} xs={12} sm={6} md={4}>
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.cardMedia}
-                          image={projectImageSrcs[project.imageName]}
-                          title={project.heading}
-                        />
-                        <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h5">
-                            {project.heading}
-                          </Typography>
-                          <Typography variant="body1">{project.content}</Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <Button
-                          variant="outlined"
-                          size="medium"
-                          color="primary"
+                    <Box boxShadow={1}>
+                      <Card className={classes.card}>
+                        <MuiLink
+                          underline="none"
+                          color="inherit"
                           href={project.gitSrc}
                           target="_blank"
                           rel="noopener"
                         >
-                          View it on GitHub
-                        </Button>
-                      </CardActions>
-                    </Card>
+                          <CardMedia
+                            className={classes.cardMedia}
+                            image={projectImageSrcs[project.imageName]}
+                            title={project.heading}
+                          />
+                          <CardContent className={classes.cardContent}>
+                            <Typography gutterBottom variant="h5">
+                              {project.heading}
+                            </Typography>
+                            <Typography variant="body1">{project.content}</Typography>
+                          </CardContent>
+                        </MuiLink>
+                        <CardActions>
+                          <Button
+                            variant="outlined"
+                            size="medium"
+                            color="primary"
+                            href={project.gitSrc}
+                            target="_blank"
+                            rel="noopener"
+                          >
+                            View it on GitHub
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </Box>
                   </Grid>
                 ))}
               </Grid>
