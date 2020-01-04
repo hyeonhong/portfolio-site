@@ -9,7 +9,13 @@ import { ListItemIcon, ListItemText, MenuList, MenuItem } from '@material-ui/cor
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  selected: {
+    backgroundColor: 'turquoise !important'
+    // color: 'white',
+    // fontWeight: 600
+  }
+}));
 
 const noop = () => {};
 
@@ -166,6 +172,7 @@ function DrawerList() {
           button
           onClick={handleClick(list.linkId)}
           selected={activeState === list.linkId}
+          classes={{ selected: classes.selected }}
         >
           <ListItemIcon>
             {(() => {
