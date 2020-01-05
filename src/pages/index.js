@@ -79,14 +79,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: theme.spacing(8, 0, 8)
+    margin: theme.spacing(10, 0, 10)
   },
   skillsSectionContent: {
     display: 'grid',
     gridAutoFlow: 'row',
     gridRowGap: theme.spacing(4),
     justifyContent: 'center',
-    margin: theme.spacing(8, 0, 8)
+    margin: theme.spacing(10, 0, 10)
   },
   paper: {
     // display: 'flex',
