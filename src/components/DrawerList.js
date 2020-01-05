@@ -40,23 +40,28 @@ function useThrottledOnScroll(callback, delay) {
 
 const lists = [
   {
-    label: 'Tab No. 1',
-    linkId: 'one',
+    label: 'Experience',
+    linkId: 'experience',
     icon: InboxIcon
   },
   {
-    label: 'Tab No. 2',
-    linkId: 'two',
+    label: 'Projects',
+    linkId: 'projects',
     icon: MailIcon
   },
   {
-    label: 'Tab No. 3',
-    linkId: 'three',
+    label: 'Skills',
+    linkId: 'skills',
     icon: InboxIcon
   },
   {
-    label: 'Tab No. 4',
-    linkId: 'four',
+    label: 'Education',
+    linkId: 'education',
+    icon: MailIcon
+  },
+  {
+    label: 'Contact',
+    linkId: 'contact',
     icon: MailIcon
   }
 ];

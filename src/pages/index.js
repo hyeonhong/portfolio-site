@@ -29,6 +29,7 @@ import Menu from '../components/Menu';
 import Banner from '../components/Banner';
 import { useAllImages } from '../hooks/use-all-images';
 import projects from '../content/projects';
+import skills from '../content/skills';
 
 const drawerWidth = 240;
 
@@ -75,13 +76,34 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'yellow'
   },
   sectionContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: theme.spacing(8, 0, 8)
+  },
+  skillsSectionContent: {
+    display: 'grid',
+    gridAutoFlow: 'row',
+    gridRowGap: theme.spacing(4),
+    justifyContent: 'center',
     margin: theme.spacing(8, 0, 8)
   },
   paper: {
     // display: 'flex',
     // justifyContent: 'center',
     padding: theme.spacing(3),
-    maxWidth: 768
+    maxWidth: 768,
+    whiteSpace: 'pre-line'
+  },
+  skillsPaper: {
+    padding: theme.spacing(5),
+    width: 768,
+    whiteSpace: 'pre-line'
+  },
+  educationPaper: {
+    padding: theme.spacing(3),
+    width: 768,
+    whiteSpace: 'pre-line'
   },
   projectGrid: {
     maxWidth: 960
@@ -98,6 +120,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1
+  },
+  height100vh: {
+    height: '100vh'
   }
 }));
 
@@ -176,74 +201,102 @@ const IndexPage = () => {
             </Typography>
           </Box>
 
-          <section id="one" className={classes.section}>
+          <section id="experience" className={classes.section}>
             <Banner title={'EXPERIENCE'} />
-            <Grid container justify="center" alignItems="center" className={classes.sectionContent}>
-              <Box boxShadow={1}>
-                <Paper className={classes.paper}>
-                  <Typography variant="h6" color="inherit">
-                    {`Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse adipisci nulla inventore eveniet. Illum voluptate eaque hic reprehenderit provident possimus rerum aperiam, corrupti tempora at vitae esse distinctio saepe sunt assumenda. Aliquid esse expedita sed aliquam ab quasi voluptate sapiente animi, maxime optio dignissimos! Sapiente corporis voluptate magni hic voluptates.`}
-                  </Typography>
-                </Paper>
-              </Box>
-            </Grid>
+            <Container maxWidth="md" className={classes.sectionContent}>
+              <Paper elevation={8} className={classes.paper}>
+                <Typography variant="h6" color="inherit">
+                  {`Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse adipisci nulla inventore eveniet. Illum voluptate eaque hic reprehenderit provident possimus rerum aperiam, corrupti tempora at vitae esse distinctio saepe sunt assumenda. Aliquid esse expedita sed aliquam ab quasi voluptate sapiente animi, maxime optio dignissimos! Sapiente corporis voluptate magni hic voluptates.`}
+                </Typography>
+              </Paper>
+            </Container>
           </section>
 
-          <section id="two" className={classes.section}>
+          <section id="projects" className={classes.section}>
             <Banner title={'PROJECTS'} />
             <Container maxWidth="md" className={classes.sectionContent}>
               <Grid container spacing={4}>
                 {projects.map((project, index) => (
                   <Grid item key={index} xs={12} sm={6} md={4}>
-                    <Box boxShadow={1}>
-                      <Card className={classes.card}>
-                        <MuiLink
-                          underline="none"
-                          color="inherit"
+                    <Card className={classes.card}>
+                      <MuiLink
+                        underline="none"
+                        color="inherit"
+                        href={project.gitSrc}
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <CardMedia
+                          className={classes.cardMedia}
+                          image={projectImageSrcs[project.imageName]}
+                          title={project.heading}
+                        />
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5">
+                            {project.heading}
+                          </Typography>
+                          <Typography variant="body1">{project.content}</Typography>
+                        </CardContent>
+                      </MuiLink>
+                      <CardActions>
+                        <Button
+                          variant="outlined"
+                          size="medium"
+                          color="primary"
                           href={project.gitSrc}
                           target="_blank"
                           rel="noopener"
                         >
-                          <CardMedia
-                            className={classes.cardMedia}
-                            image={projectImageSrcs[project.imageName]}
-                            title={project.heading}
-                          />
-                          <CardContent className={classes.cardContent}>
-                            <Typography gutterBottom variant="h5">
-                              {project.heading}
-                            </Typography>
-                            <Typography variant="body1">{project.content}</Typography>
-                          </CardContent>
-                        </MuiLink>
-                        <CardActions>
-                          <Button
-                            variant="outlined"
-                            size="medium"
-                            color="primary"
-                            href={project.gitSrc}
-                            target="_blank"
-                            rel="noopener"
-                          >
-                            View it on GitHub
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Box>
+                          View it on GitHub
+                        </Button>
+                      </CardActions>
+                    </Card>
                   </Grid>
                 ))}
               </Grid>
             </Container>
           </section>
 
-          <section id="three" className={classes.section}>
+          <section id="skills" className={classes.section}>
             <Banner title={'SKILLS'} />
-            <div className={classes.sectionContent}></div>
+            <Container maxWidth="md" className={classes.skillsSectionContent}>
+              {skills.map((category, index) => (
+                <Paper key={index} elevation={4} className={classes.skillsPaper}>
+                  <Typography variant="h5" color="primary">
+                    {category.split('\n')[0]}
+                  </Typography>
+                  <Typography variant="h6" color="textPrimary">
+                    {category.split('\n')[1]}
+                  </Typography>
+                </Paper>
+              ))}
+            </Container>
           </section>
 
-          <section id="four" className={classes.section}>
+          <section id="education" className={classes.section}>
             <Banner title={'EDUCATION'} />
-            <div className={classes.sectionContent}></div>
+            <Container maxWidth="md" className={classes.sectionContent}>
+              <Paper elevation={4} className={classes.educationPaper}>
+                <Typography variant="h5" color="primary">
+                  {'University of Washington'}
+                </Typography>
+                <Typography variant="body1" color="inherit">
+                  {'2014-2017'}
+                </Typography>
+                <Typography variant="h6" color="inherit">
+                  {'\nB.S. in Computer Science'}
+                </Typography>
+              </Paper>
+            </Container>
+          </section>
+
+          <section id="contact" className={`${classes.section} ${classes.height100vh}`}>
+            <Banner title={'CONTACT'} />
+            <Container maxWidth="md" className={classes.sectionContent}>
+              <Paper elevation={8} className={classes.paper}>
+                contact info
+              </Paper>
+            </Container>
           </section>
         </main>
       </div>
