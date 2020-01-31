@@ -31,6 +31,8 @@ import { useAllImages } from '../hooks/use-all-images';
 import projects from '../content/projects';
 import skills from '../content/skills';
 
+import Intro from '../mdx/intro.mdx';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -205,9 +207,7 @@ const IndexPage = () => {
             <Banner title={'EXPERIENCE'} />
             <Container maxWidth="md" className={classes.sectionContent}>
               <Paper elevation={8} className={classes.paper}>
-                <Typography variant="h6" color="inherit">
-                  {`Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse adipisci nulla inventore eveniet. Illum voluptate eaque hic reprehenderit provident possimus rerum aperiam, corrupti tempora at vitae esse distinctio saepe sunt assumenda. Aliquid esse expedita sed aliquam ab quasi voluptate sapiente animi, maxime optio dignissimos! Sapiente corporis voluptate magni hic voluptates.`}
-                </Typography>
+                <Intro />
               </Paper>
             </Container>
           </section>

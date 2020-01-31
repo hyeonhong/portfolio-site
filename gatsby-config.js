@@ -10,6 +10,21 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        defaultLayouts: {
+          mdxComponents: require.resolve('./src/components/MdxLayout')
+        }
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: 'mdxComponents',
+        path: `${__dirname}/src/mdx/`
+      }
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
