@@ -3,13 +3,8 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  AppBar,
-  Toolbar,
-  Container,
-  Divider,
   Hidden,
   Grid,
-  Drawer,
   Typography,
   Button,
   Card,
@@ -24,23 +19,23 @@ import {
 } from '@material-ui/core';
 
 import SEO from '../components/Seo';
-import NewLayout from '../components/NewLayout';
+import Layout from '../components/Layout';
 import Menu from '../components/Menu';
-import Banner from '../components/Banner';
+import Section from '../components/Section';
 import { useAllImages } from '../hooks/use-all-images';
 import projects from '../content/projects';
-import skills from '../content/skills';
 
-import Intro from '../mdx/intro.mdx';
+import Intro from '../mdx/Intro.mdx';
+import Skills from '../mdx/Skills.mdx';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  // '@global': {
-  //   body: {
-  //     backgroundColor: theme.palette.common.white
-  //   }
-  // },
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white
+    }
+  },
   root: {
     display: 'flex'
   },
@@ -51,10 +46,6 @@ const useStyles = makeStyles((theme) => ({
     // padding: theme.spacing(3)
   },
   heroImage: {
-    // margin: 50,
-    // width: 200,
-    // height: 200,
-
     height: '100vh'
   },
   foreground: {
@@ -70,45 +61,15 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   toolbar: theme.mixins.toolbar,
-  section: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    // height: '100vh',
-    backgroundColor: 'yellow'
-  },
-  sectionContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: theme.spacing(10, 0, 10)
-  },
-  skillsSectionContent: {
-    display: 'grid',
-    gridAutoFlow: 'row',
-    gridRowGap: theme.spacing(4),
-    justifyContent: 'center',
-    margin: theme.spacing(10, 0, 10)
-  },
   paper: {
-    // display: 'flex',
-    // justifyContent: 'center',
-    padding: theme.spacing(3),
-    maxWidth: 768,
-    whiteSpace: 'pre-line'
-  },
-  skillsPaper: {
     padding: theme.spacing(5),
-    width: 768,
+    width: '90%',
     whiteSpace: 'pre-line'
   },
-  educationPaper: {
-    padding: theme.spacing(3),
-    width: 768,
-    whiteSpace: 'pre-line'
-  },
-  projectGrid: {
-    maxWidth: 960
+  paperSkills: {
+    padding: theme.spacing(5),
+    // display: 'inline-block'
+    width: '80%'
   },
   card: {
     height: '100%'
@@ -184,7 +145,7 @@ const IndexPage = () => {
   });
 
   return (
-    <NewLayout>
+    <Layout>
       <SEO title="Home" />
       <div className={classes.root}>
         <Menu drawerWidth={drawerWidth} />
@@ -203,104 +164,83 @@ const IndexPage = () => {
             </Typography>
           </Box>
 
-          <section id="experience" className={classes.section}>
-            <Banner title={'EXPERIENCE'} />
-            <Container maxWidth="md" className={classes.sectionContent}>
-              <Paper elevation={8} className={classes.paper}>
-                <Intro />
-              </Paper>
-            </Container>
-          </section>
+          <Section id="experience" title="EXPERIENCE">
+            <Paper elevation={8} className={classes.paper}>
+              <Intro />
+            </Paper>
+          </Section>
 
-          <section id="projects" className={classes.section}>
-            <Banner title={'PROJECTS'} />
-            <Container maxWidth="md" className={classes.sectionContent}>
-              <Grid container spacing={4}>
-                {projects.map((project, index) => (
-                  <Grid item key={index} xs={12} sm={6} md={4}>
-                    <Card className={classes.card}>
-                      <MuiLink
-                        underline="none"
-                        color="inherit"
+          <Section id="projects" title="PROJECTS">
+            <Grid container spacing={4}>
+              {projects.map((project, index) => (
+                <Grid item key={index} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <MuiLink
+                      underline="none"
+                      color="inherit"
+                      href={project.gitSrc}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={projectImageSrcs[project.imageName]}
+                        title={project.heading}
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Typography gutterBottom variant="h5">
+                          {project.heading}
+                        </Typography>
+                        <Typography variant="body1">{project.content}</Typography>
+                      </CardContent>
+                    </MuiLink>
+                    <CardActions>
+                      <Button
+                        variant="outlined"
+                        size="medium"
+                        color="primary"
                         href={project.gitSrc}
                         target="_blank"
                         rel="noopener"
                       >
-                        <CardMedia
-                          className={classes.cardMedia}
-                          image={projectImageSrcs[project.imageName]}
-                          title={project.heading}
-                        />
-                        <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h5">
-                            {project.heading}
-                          </Typography>
-                          <Typography variant="body1">{project.content}</Typography>
-                        </CardContent>
-                      </MuiLink>
-                      <CardActions>
-                        <Button
-                          variant="outlined"
-                          size="medium"
-                          color="primary"
-                          href={project.gitSrc}
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          View it on GitHub
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </Container>
-          </section>
-
-          <section id="skills" className={classes.section}>
-            <Banner title={'SKILLS'} />
-            <Container maxWidth="md" className={classes.skillsSectionContent}>
-              {skills.map((category, index) => (
-                <Paper key={index} elevation={4} className={classes.skillsPaper}>
-                  <Typography variant="h5" color="primary">
-                    {category.split('\n')[0]}
-                  </Typography>
-                  <Typography variant="h6" color="textPrimary">
-                    {category.split('\n')[1]}
-                  </Typography>
-                </Paper>
+                        View it on GitHub
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
               ))}
-            </Container>
-          </section>
+            </Grid>
+          </Section>
 
-          <section id="education" className={classes.section}>
-            <Banner title={'EDUCATION'} />
-            <Container maxWidth="md" className={classes.sectionContent}>
-              <Paper elevation={4} className={classes.educationPaper}>
-                <Typography variant="h5" color="primary">
-                  {'University of Washington'}
-                </Typography>
-                <Typography variant="body1" color="inherit">
-                  {'2014-2017'}
-                </Typography>
-                <Typography variant="h6" color="inherit">
-                  {'\nB.S. in Computer Science'}
-                </Typography>
-              </Paper>
-            </Container>
-          </section>
+          <Section id="skills" title="SKILLS">
+            <Paper elevation={4} className={classes.paperSkills}>
+              <Skills />
+            </Paper>
+          </Section>
 
-          <section id="contact" className={`${classes.section} ${classes.height100vh}`}>
-            <Banner title={'CONTACT'} />
-            <Container maxWidth="md" className={classes.sectionContent}>
-              <Paper elevation={8} className={classes.paper}>
-                contact info
-              </Paper>
-            </Container>
-          </section>
+          <Section id="education" title="EDUCATION">
+            <Paper elevation={4} className={classes.paperSkills}>
+              <Typography variant="h6" color="primary">
+                {'University of Washington'}
+              </Typography>
+              <Typography variant="body1" color="inherit">
+                {'2014.09 - 2017.03'}
+              </Typography>
+              <br />
+              <Typography variant="body1" color="inherit">
+                <strong>{'B.S.in Computer Science'}</strong>
+              </Typography>
+            </Paper>
+          </Section>
+
+          <Section id="contact" title="CONTACT">
+            <Paper elevation={8} className={classes.paper}>
+              contact info
+            </Paper>
+          </Section>
         </main>
       </div>
-    </NewLayout>
+    </Layout>
   );
 };
 

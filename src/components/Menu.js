@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const IndexPage = (props) => {
+const Menu = (props) => {
   const isSSR = typeof window === 'undefined';
 
   const data = useStaticQuery(graphql`
@@ -131,4 +131,4 @@ const IndexPage = (props) => {
   );
 };
 
-export default IndexPage;
+export default Menu;

@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 
-import Header from './Header';
-import Footer from './Footer';
+// import Header from './Header';
+// import Footer from './Footer';
 import theme from '../theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh'
+    // display: 'flex',
+    // flexDirection: 'column',
+    // minHeight: '100vh'
   },
   filler: {
     flex: 1
@@ -33,10 +33,10 @@ const Layout = ({ children }) => {
       <ThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
-          <Header />
+          {/* <Header /> */}
           {children}
-          <div className={classes.filler}></div>
-          <Footer />
+          {/* <div className={classes.filler}></div> */}
+          {/* <Footer /> */}
         </div>
       </ThemeProvider>
     </>
