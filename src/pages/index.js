@@ -158,9 +158,7 @@ const IndexPage = () => {
             </Hidden>
 
             <Typography variant="h2" color="inherit">
-              {`Don't cry because it's over.`}
-              <br />
-              {`Be happy because it happened.`}
+              {`I pride myself on taking ownership of projects that have a direct impact on our customers.`}
             </Typography>
           </Box>
 

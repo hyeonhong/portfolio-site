@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.25rem'
     },
     textTransform: 'none'
+  },
+  numberButton: {
+    borderRight: `1px solid ${theme.palette.divider}`
   }
 }));
 
@@ -100,6 +103,18 @@ const BlogList = ({ data, pageContext }) => {
             >
               ← Newer Posts
             </Button>
+          </Grid>
+          <Grid item>
+            {Array.from({ length: numPages }, (_, index) => (
+              <Button
+                key={index}
+                color={index + 1 === currentPage ? 'primary' : 'secondary'}
+                onClick={() => navigate(index === 0 ? '/blog' : `/blog/${index + 1}`)}
+                className={classes.numberButton}
+              >
+                {index + 1}
+              </Button>
+            ))}
           </Grid>
           <Grid item>
             <Button
