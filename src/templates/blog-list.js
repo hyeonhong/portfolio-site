@@ -129,6 +129,16 @@ const BlogList = ({ data, pageContext }) => {
           </Grid>
         </Grid>
         <Box marginBottom={10} />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate('/')}
+            className={classes.button}
+          >
+            ← Back Home
+          </Button>
+        </div>
       </Container>
     </Layout>
   );

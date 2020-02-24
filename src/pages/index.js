@@ -15,8 +15,14 @@ import {
   Box,
   ButtonBase,
   Paper,
+  IconButton,
   Link as MuiLink
 } from '@material-ui/core';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faDownload, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+// import { faFile } from '@fortawesome/free-regular-svg-icons';
 
 import SEO from '../components/Seo';
 import Layout from '../components/Layout';
@@ -53,11 +59,19 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     zIndex: 1,
     color: 'white',
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    height: '100vh',
+    backgroundColor: 'rgba(0,0,0,0.0)',
+    minHeight: '100vh',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`
+    }
+  },
+  foregroundText: {
+    position: 'absolute',
+    top: '40%',
+    marginLeft: theme.spacing(20),
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: theme.spacing(5)
     }
   },
   toolbar: theme.mixins.toolbar,
@@ -66,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     width: '90%',
     whiteSpace: 'pre-line'
   },
-  paperSkills: {
+  skillsPaper: {
     padding: theme.spacing(5),
     // display: 'inline-block'
     width: '80%'
@@ -84,8 +98,32 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1
   },
-  height100vh: {
-    height: '100vh'
+  resumePaper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    padding: theme.spacing(5),
+    width: '90%'
+  },
+  resumeButton: {
+    margin: theme.spacing(3),
+    fontSize: '1.125rem',
+    textTransform: 'none'
+  },
+  contactPaper: {
+    padding: theme.spacing(5),
+    width: '90%'
+  },
+  contactItem: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: theme.spacing(5)
+  },
+  contactIcon: {
+    color: 'white',
+    borderRadius: '50%',
+    backgroundColor: theme.palette.primary.main,
+    marginRight: theme.spacing(4)
   }
 }));
 
@@ -151,16 +189,19 @@ const IndexPage = () => {
         <Menu drawerWidth={drawerWidth} />
 
         <main className={classes.main}>
-          <Img fluid={frontSources} className={classes.heroImage} alt="front-image" />
-          <Box className={classes.foreground}>
+          <div className={classes.heroImage}>
+            <Img fluid={frontSources} style={{ height: '100%' }} alt="front-image" />
+          </div>
+          <div className={classes.foreground}>
             <Hidden smUp>
               <div className={classes.toolbar} />
             </Hidden>
-
-            <Typography variant="h2" color="inherit">
-              {`I pride myself on taking ownership of projects that have a direct impact on our customers.`}
-            </Typography>
-          </Box>
+            <div className={classes.foregroundText}>
+              <Typography variant="h2" color="inherit">
+                {`Strive to be better everyday.`}
+              </Typography>
+            </div>
+          </div>
 
           <Section id="experience" title="EXPERIENCE">
             <Paper elevation={8} className={classes.paper}>
@@ -211,29 +252,95 @@ const IndexPage = () => {
           </Section>
 
           <Section id="skills" title="SKILLS">
-            <Paper elevation={4} className={classes.paperSkills}>
+            <Paper elevation={4} className={classes.skillsPaper}>
               <Skills />
             </Paper>
           </Section>
 
           <Section id="education" title="EDUCATION">
-            <Paper elevation={4} className={classes.paperSkills}>
-              <Typography variant="h6" color="primary">
+            <Paper elevation={4} className={classes.skillsPaper}>
+              <Typography variant="h5" color="primary">
                 {'University of Washington'}
               </Typography>
               <Typography variant="body1" color="inherit">
                 {'2014.09 - 2017.03'}
               </Typography>
               <br />
-              <Typography variant="body1" color="inherit">
+              <Typography variant="h6" color="inherit">
                 <strong>{'B.S.in Computer Science'}</strong>
               </Typography>
             </Paper>
           </Section>
 
-          <Section id="contact" title="CONTACT">
-            <Paper elevation={8} className={classes.paper}>
-              contact info
+          <Section id="resume" title="RESUME">
+            <Paper elevation={4} className={classes.resumePaper}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.resumeButton}
+                endIcon={<FontAwesomeIcon icon={faDownload} />}
+                href="HyeonHong-English.pdf"
+                target="_blank"
+              >
+                Resume - English
+              </Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: '#6e5494', color: '#fff' }}
+                className={classes.resumeButton}
+                endIcon={<FontAwesomeIcon icon={faDownload} />}
+                href="HyeonHong-Korean.pdf"
+                target="_blank"
+              >
+                Resume - Korean
+              </Button>
+            </Paper>
+          </Section>
+
+          <Section id="contact" title="CONTACT" fullHeight>
+            <Paper elevation={8} className={classes.contactPaper}>
+              <div className={classes.contactItem}>
+                <IconButton className={classes.contactIcon}>
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </IconButton>
+                <Typography
+                  variant="h6"
+                  component={ButtonBase}
+                  href="mailto:hyeonshong@gmail.com"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  hyeonshong@gmail.com
+                </Typography>
+              </div>
+              <div className={classes.contactItem}>
+                <IconButton className={classes.contactIcon}>
+                  <FontAwesomeIcon icon={faGithub} />
+                </IconButton>
+                <Typography
+                  variant="h6"
+                  component={ButtonBase}
+                  href="https://github.com/hyeonhong"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  github.com/hyeonhong
+                </Typography>
+              </div>
+              <div className={classes.contactItem}>
+                <IconButton className={classes.contactIcon}>
+                  <FontAwesomeIcon icon={faLinkedin} />
+                </IconButton>
+                <Typography
+                  variant="h6"
+                  component={ButtonBase}
+                  href="https://linkedin.com/in/hyeonhong"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  linkedin.com/in/hyeonhong
+                </Typography>
+              </div>
             </Paper>
           </Section>
         </main>

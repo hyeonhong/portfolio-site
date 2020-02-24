@@ -9,7 +9,10 @@ import {
   Typography,
   Drawer,
   Box,
-  ButtonBase
+  ButtonBase,
+  ListItem,
+  ListItemIcon,
+  ListItemText
 } from '@material-ui/core';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -91,6 +94,14 @@ const Menu = (props) => {
               <DrawerList />
             </React.Suspense>
           )}
+          <Divider />
+          <Box marginBottom={4} />
+          <ListItem button onClick={() => navigate('/blog')}>
+            <ListItemIcon>
+              <MenuIcon />
+            </ListItemIcon>
+            <ListItemText primary="Blog" />
+          </ListItem>
         </Drawer>
       </Hidden>
       <Hidden xsDown>
@@ -125,6 +136,14 @@ const Menu = (props) => {
               <DrawerList />
             </React.Suspense>
           )}
+          <Divider />
+          <Box marginBottom={4} />
+          <ListItem button onClick={() => navigate('/blog')}>
+            <ListItemIcon>
+              <MenuIcon />
+            </ListItemIcon>
+            <ListItemText primary="Blog" />
+          </ListItem>
         </Drawer>
       </Hidden>
     </>

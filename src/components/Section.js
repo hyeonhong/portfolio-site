@@ -8,8 +8,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    // height: '100vh',
-    backgroundColor: 'yellow'
+    backgroundColor: '#f7f7f7'
+  },
+  fullHeight: {
+    height: '100vh'
   },
   banner: {
     width: '100%',
@@ -25,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Section = ({ id, title, children }) => {
+const Section = ({ id, title, children, fullHeight }) => {
   const classes = useStyles();
 
   return (
-    <section id={id} className={classes.root}>
+    <section id={id} className={`${classes.root} ${fullHeight ? classes.fullHeight : ''}`}>
       <Typography variant="h4" noWrap className={classes.banner}>
         {title}
       </Typography>

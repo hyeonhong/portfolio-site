@@ -6,12 +6,20 @@ import throttle from 'lodash/throttle';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItemIcon, ListItemText, MenuList, MenuItem } from '@material-ui/core';
 
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import {
+  faBriefcase,
+  faWindowRestore,
+  faMouse,
+  faGraduationCap,
+  faFile,
+  faEnvelope
+} from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles((theme) => ({
   selected: {
-    backgroundColor: 'turquoise !important'
+    backgroundColor: '#f1f1f1 !important'
     // color: 'white',
     // fontWeight: 600
   }
@@ -42,27 +50,32 @@ const lists = [
   {
     label: 'Experience',
     linkId: 'experience',
-    icon: InboxIcon
+    icon: <FontAwesomeIcon icon={faBriefcase} />
   },
   {
     label: 'Projects',
     linkId: 'projects',
-    icon: MailIcon
+    icon: <FontAwesomeIcon icon={faWindowRestore} />
   },
   {
     label: 'Skills',
     linkId: 'skills',
-    icon: InboxIcon
+    icon: <FontAwesomeIcon icon={faMouse} />
   },
   {
     label: 'Education',
     linkId: 'education',
-    icon: MailIcon
+    icon: <FontAwesomeIcon icon={faGraduationCap} />
+  },
+  {
+    label: 'Resume',
+    linkId: 'resume',
+    icon: <FontAwesomeIcon icon={faFile} />
   },
   {
     label: 'Contact',
     linkId: 'contact',
-    icon: MailIcon
+    icon: <FontAwesomeIcon icon={faEnvelope} />
   }
 ];
 
@@ -179,12 +192,7 @@ function DrawerList() {
           selected={activeState === list.linkId}
           classes={{ selected: classes.selected }}
         >
-          <ListItemIcon>
-            {(() => {
-              const Icon = list.icon;
-              return <Icon />;
-            })()}
-          </ListItemIcon>
+          <ListItemIcon>{list.icon}</ListItemIcon>
           <ListItemText primary={list.label} />
         </MenuItem>
       ))}

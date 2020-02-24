@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
   html: {
     '& p': {
       '& code': {
-        fontSize: '1rem'
+        fontSize: '1.2rem'
         // backgroundColor: '#f6f8fa'
       },
-      fontSize: '1rem'
+      fontSize: '1.125rem'
     },
     '& ul': {
       '& li': {
@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     '& pre': {
       fontSize: '1rem'
       // backgroundColor: '#f6edfa'
+    },
+    '& code': {
+      fontSize: '1rem'
     }
   },
   button: {
@@ -93,7 +96,7 @@ const BlogPost = ({ data, pageContext }) => {
             onClick={() => navigate(mainPage)}
             className={classes.button}
           >
-            ← Back to Main
+            ← Back to List
           </Button>
         </Grid>
 
