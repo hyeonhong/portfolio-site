@@ -111,13 +111,20 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none'
   },
   contactPaper: {
-    padding: theme.spacing(5),
-    width: '90%'
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
+    paddingLeft: theme.spacing(5),
+    width: '90%',
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: theme.spacing(2),
+      width: '100%'
+    }
   },
   contactItem: {
     display: 'flex',
     alignItems: 'center',
-    margin: theme.spacing(5)
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5)
   },
   contactIcon: {
     color: 'white',
