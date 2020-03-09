@@ -79,33 +79,6 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-prefetch-google-fonts',
-      options: {
-        fonts: [
-          {
-            family: 'Roboto',
-            variants: ['300', '400', '500', '700']
-          },
-          {
-            family: 'Montserrat',
-            variants: ['300', '400', '500', '600']
-          },
-          {
-            family: 'Lato',
-            variants: ['300', '400', '700']
-          },
-          {
-            family: 'Lora',
-            variants: ['400', '700']
-          }
-          // {
-          //   family: 'Open Sans',
-          //   variants: ['300', '400', '600', '700']
-          // }
-        ]
-      }
-    },
-    {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-153659862-1'
