@@ -6,7 +6,9 @@ module.exports = {
   siteMetadata: {
     title: 'Hyeon Hong',
     description: 'Software Developer Portfolio',
-    author: 'Hyeon Hong'
+    author: 'Hyeon Hong',
+    url: 'https://hyeonhong.io', // No trailing slash allowed
+    image: '/images/profile-photo.jpg' // Path to your image you placed in the 'static' folder
   },
   plugins: [
     {
