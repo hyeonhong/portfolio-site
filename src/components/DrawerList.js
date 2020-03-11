@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBriefcase,
   faWindowRestore,
-  faMouse,
-  faGraduationCap,
+  faCog,
+  faUniversity,
   faFile,
   faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
@@ -60,12 +60,12 @@ const lists = [
   {
     label: 'Skills',
     linkId: 'skills',
-    icon: <FontAwesomeIcon icon={faMouse} />
+    icon: <FontAwesomeIcon icon={faCog} />
   },
   {
     label: 'Education',
     linkId: 'education',
-    icon: <FontAwesomeIcon icon={faGraduationCap} />
+    icon: <FontAwesomeIcon icon={faUniversity} />
   },
   {
     label: 'Resume',
