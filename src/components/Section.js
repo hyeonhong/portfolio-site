@@ -22,8 +22,10 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    margin: theme.spacing(10, 0, 10)
+    margin: theme.spacing(10, 0, 10),
+    [theme.breakpoints.down('xs')]: {
+      alignItems: 'center'
+    }
   }
 }));
 
