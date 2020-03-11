@@ -31,7 +31,8 @@ import Section from '../components/Section';
 import { useAllImages } from '../hooks/use-all-images';
 import projects from '../content/projects';
 
-import Intro from '../mdx/Intro.mdx';
+import Exp1 from '../mdx/Exp1.mdx';
+import Exp2 from '../mdx/Exp2.mdx';
 import Skills from '../mdx/Skills.mdx';
 
 const drawerWidth = 240;
@@ -103,7 +104,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     padding: theme.spacing(5),
-    width: '90%'
+    width: '90%',
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1)
+    }
   },
   resumeButton: {
     margin: theme.spacing(3),
@@ -111,10 +115,12 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none'
   },
   contactPaper: {
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
-    paddingLeft: theme.spacing(5),
-    width: '90%',
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(5),
+      paddingLeft: theme.spacing(5),
+      width: '90%'
+    },
     [theme.breakpoints.down('xs')]: {
       paddingLeft: theme.spacing(2),
       width: '100%'
@@ -130,7 +136,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     borderRadius: '50%',
     backgroundColor: theme.palette.primary.main,
-    marginRight: theme.spacing(4)
+    marginRight: theme.spacing(4),
+    [theme.breakpoints.down('xs')]: {
+      marginRight: theme.spacing(1)
+    }
   }
 }));
 
@@ -212,7 +221,11 @@ const IndexPage = () => {
 
           <Section id="experience" title="EXPERIENCE">
             <Paper elevation={8} className={classes.paper}>
-              <Intro />
+              <Exp1 />
+            </Paper>
+            <Box marginBottom={8} />
+            <Paper elevation={8} className={classes.paper}>
+              <Exp2 />
             </Paper>
           </Section>
 

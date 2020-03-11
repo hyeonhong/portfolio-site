@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center',
+    alignItems: 'center',
     margin: theme.spacing(10, 0, 10)
   }
 }));
