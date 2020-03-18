@@ -230,7 +230,7 @@ const IndexPage = () => {
           </Section>
 
           <Section id="projects" title="PROJECTS">
-            <Grid container spacing={4}>
+            <Grid container spacing={6}>
               {projects.map((project, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
