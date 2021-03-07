@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { makeStyles, experimentalStyled } from '@material-ui/core/styles'
 import { useMediaQuery, Typography, Container, Box, Paper, Button } from '@material-ui/core'
@@ -73,7 +72,7 @@ export default function Footer({ texts }) {
 
   const SocialMediaLink = ({ href, ...imageProps }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className={classes.link}>
-      <Image {...imageProps} />
+      <img {...imageProps} />
     </a>
   )
 

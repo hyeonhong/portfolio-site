@@ -4,16 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "deploy": "aws s3 sync public/. s3://hyeonhong-io.app"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint:fix"
-    }
+    "deploy": "aws s3 sync out/. s3://hyeonhong-io.app"
   },
   "dependencies": {
     "@emotion/cache": "^11.1.3",

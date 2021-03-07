@@ -1,7 +1,6 @@
 /* eslint-disable multiline-ternary */
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
@@ -83,7 +82,7 @@ export default function Header({ texts }) {
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Button onClick={() => router.push('/')} color="inherit" className={classes.logo}>
-            <Image src="/assets/logo.png" alt="company logo" width={130} height={42.8} />
+            <img src="/assets/logo.png" alt="company logo" width={130} height={42.8} />
           </Button>
           <Box className={classes.filler} />
           <Hidden smDown>

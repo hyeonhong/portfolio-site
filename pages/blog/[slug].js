@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import renderToString from 'next-mdx-remote/render-to-string'
 import hydrate from 'next-mdx-remote/hydrate'
 import {
@@ -18,7 +17,7 @@ import { getPostBySlug, getAllSlugs } from 'lib/blogAPI'
 import Date from 'components/Date'
 import Bio from 'components/Bio'
 
-const components = { Image }
+const components = {}
 
 export default function BlogPost({ post }) {
   const router = useRouter()
