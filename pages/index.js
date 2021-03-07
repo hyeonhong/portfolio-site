@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import {
   Typography,
   Box,
+  Hidden,
   Paper,
   Grid,
   Card,
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  offset: theme.mixins.toolbar,
   sectionPaper: {
     textAlign: 'left',
     padding: theme.spacing(5),
@@ -81,6 +83,10 @@ export default function HomePage({ texts, announcement }) {
       <SideMenu drawerWidth={DRAWER_WIDTH} />
 
       <Box className={classes.main}>
+        <Hidden smUp>
+          <div className={classes.offset} />
+        </Hidden>
+
         <Box
           sx={{
             backgroundImage: 'url("/assets/images/front-desktop.jpg")',
@@ -104,20 +110,6 @@ export default function HomePage({ texts, announcement }) {
             {'Strive to be better everyday.'}
           </Typography>
         </Box>
-
-        {/* <div className={classes.heroImage}>
-          <Img fluid={frontSources} style={{ height: '100%' }} alt="front-image" />
-        </div>
-        <div className={classes.foreground}>
-          <Hidden smUp>
-            <div className={classes.toolbar} />
-          </Hidden>
-          <div className={classes.foregroundText}>
-            <Typography variant="h2" color="inherit">
-              {`Strive to be better everyday.`}
-            </Typography>
-          </div>
-        </div> */}
 
         <Section id="experience" title="EXPERIENCE">
           <Box sx={{ textAlign: 'left' }}>

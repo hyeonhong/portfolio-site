@@ -21,7 +21,6 @@ import MenuIcon from '@material-ui/icons/Menu'
 import DrawerList from 'components/DrawerList'
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {},
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
@@ -50,7 +49,7 @@ const Menu = (props) => {
   return (
     <>
       <Hidden smUp>
-        <AppBar position="fixed" className={classes.appBar}>
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               color="inherit"

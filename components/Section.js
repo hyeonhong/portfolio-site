@@ -1,6 +1,6 @@
-import React from 'react'
+import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, Container } from '@material-ui/core'
+import { Box, Typography, Container } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,17 +11,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f7f7f7'
   },
   fullHeight: {
-    height: '100vh'
+    minHeight: '100vh'
   },
   banner: {
     width: '100%',
     padding: theme.spacing(3),
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main
-  },
-  content: {
-    margin: theme.spacing(10, 0, 10),
-    textAlign: 'center'
   }
 }))
 
@@ -29,12 +25,14 @@ const Section = ({ id, title, children, fullHeight }) => {
   const classes = useStyles()
 
   return (
-    <section id={id} className={`${classes.root} ${fullHeight ? classes.fullHeight : ''}`}>
+    <section id={id} className={clsx(classes.root, fullHeight && classes.fullHeight)}>
       <Typography variant="h4" noWrap className={classes.banner}>
         {title}
       </Typography>
-      <Container maxWidth="md" className={classes.content}>
+      <Container maxWidth="md" sx={{ textAlign: 'center' }}>
+        <Box marginBottom={10} />
         {children}
+        <Box marginBottom={10} />
       </Container>
     </section>
   )
