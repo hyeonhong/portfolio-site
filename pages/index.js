@@ -10,9 +10,7 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  Button,
-  IconButton,
-  ButtonBase
+  Button
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
@@ -64,19 +62,36 @@ const useStyles = makeStyles((theme) => ({
   fullWidth: {
     width: '100%'
   },
-  contactIcon: {
-    color: 'white',
-    borderRadius: '50%',
-    backgroundColor: theme.palette.primary.main,
-    marginRight: theme.spacing(4),
-    [theme.breakpoints.down('xs')]: {
-      marginRight: theme.spacing(1)
-    }
+  contactPaper: {
+    padding: theme.spacing(8),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2)
+    },
+    textAlign: 'left',
+    '& > * + *': { marginTop: theme.spacing(6) }
   }
 }))
 
-export default function HomePage({ texts, announcement }) {
+export default function HomePage() {
   const classes = useStyles()
+
+  const ContactButton = ({ icon, href, buttonText }) => (
+    <Box>
+      <Button
+        disableElevation
+        disableRipple
+        disableFocusRipple
+        disableTouchRipple
+        startIcon={<FontAwesomeIcon icon={icon} />}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={{ color: 'text.primary', fontSize: '1.25rem', whiteSpace: 'pre' }}
+      >
+        {`  ${buttonText}`}
+      </Button>
+    </Box>
+  )
 
   return (
     <div className={classes.root}>
@@ -219,52 +234,22 @@ export default function HomePage({ texts, announcement }) {
         </Section>
 
         <Section id="contact" title="CONTACT" fullHeight>
-          <Paper
-            elevation={8}
-            sx={{ padding: 8, textAlign: 'left', '& > * + *': { marginTop: 6 } }}
-          >
-            <Box>
-              <IconButton className={classes.contactIcon}>
-                <FontAwesomeIcon icon={faEnvelope} />
-              </IconButton>
-              <Typography
-                variant="h6"
-                component={ButtonBase}
-                href="mailto:hyeonshong@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'hyeonshong@gmail.com'}
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton className={classes.contactIcon}>
-                <FontAwesomeIcon icon={faGithub} />
-              </IconButton>
-              <Typography
-                variant="h6"
-                component={ButtonBase}
-                href="https://github.com/hyeonhong"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'github.com/hyeonhong'}
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton className={classes.contactIcon}>
-                <FontAwesomeIcon icon={faLinkedin} />
-              </IconButton>
-              <Typography
-                variant="h6"
-                component={ButtonBase}
-                href="https://linkedin.com/in/hyeonhong"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'linkedin.com/in/hyeonhong'}
-              </Typography>
-            </Box>
+          <Paper elevation={8} className={classes.contactPaper}>
+            <ContactButton
+              icon={faEnvelope}
+              href="mailto:hyeonshong@gmail.com"
+              buttonText="hyeonshong@gmail.com"
+            />
+            <ContactButton
+              icon={faGithub}
+              href="https://github.com/hyeonhong"
+              buttonText="github.com/hyeonhong"
+            />
+            <ContactButton
+              icon={faLinkedin}
+              href="https://linkedin.com/in/hyeonhong"
+              buttonText="linkedin.com/in/hyeonhong"
+            />
           </Paper>
         </Section>
       </Box>
