@@ -4,6 +4,9 @@ import { Typography, Box } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column'
+    },
     alignItems: 'center'
   },
   avatar: {
