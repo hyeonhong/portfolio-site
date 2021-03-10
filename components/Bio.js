@@ -23,9 +23,14 @@ export default function Bio() {
         className={classes.avatar}
       />
       <Box marginRight={4} />
-      <Typography variant="body1" color="textPrimary">
-        Written by <strong>Hyeon Hong</strong>, who strives to achieve the best in all areas, and is
-        always open and eager to learn new skills and push himself in new ways.
+      <Typography variant="body1" color="textPrimary" sx={{ whiteSpace: 'pre-line' }}>
+        <Box fontWeight="fontWeightBold" display="inline">
+          {'Hyeon Hong'}
+        </Box>
+        <br />
+        {`The Universe is a cruel, uncaring void. The key to being happy isn't to search for meaning.
+        It's to just keep yourself busy with unimportant nonsense. And eventually, you'll be dead. — Bojack Horseman
+        `}
       </Typography>
     </div>
   )
