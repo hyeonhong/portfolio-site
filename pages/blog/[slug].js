@@ -82,7 +82,7 @@ export default function BlogPost({ post }) {
           disableTouchRipple
           onClick={() => router.push('/blog')}
         >
-          {'Back To Blog'}
+          {'Back To List'}
         </Button>
         <Box sx={{ marginBottom: 16 }} />
 
