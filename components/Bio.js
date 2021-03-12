@@ -26,7 +26,12 @@ export default function Bio() {
         className={classes.avatar}
       />
       <Box marginRight={4} />
-      <Typography variant="body1" color="textPrimary" sx={{ whiteSpace: 'pre-line' }}>
+      <Typography
+        component="div"
+        variant="body1"
+        color="textPrimary"
+        sx={{ whiteSpace: 'pre-line' }}
+      >
         <Box fontWeight="fontWeightBold" display="inline">
           {'Hyeon Hong'}
         </Box>

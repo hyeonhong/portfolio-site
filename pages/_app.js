@@ -24,13 +24,13 @@ export default function MyApp(props) {
   const { Component, pageProps } = props
 
   const mdxComponents = {
-    h1: (props) => <Typography variant={'h1'} {...props} />,
-    h2: (props) => <Typography variant={'h2'} {...props} />,
-    h3: (props) => <Typography variant={'h3'} {...props} />,
-    h4: (props) => <Typography variant={'h4'} {...props} />,
-    h5: (props) => <Typography variant={'h5'} {...props} />,
-    h6: (props) => <Typography variant={'h6'} {...props} />,
-    p: (props) => <Typography variant={'body1'} {...props} />,
+    h1: (props) => <Typography variant="h1" {...props} />,
+    h2: (props) => <Typography variant="h2" {...props} />,
+    h3: (props) => <Typography variant="h3" {...props} />,
+    h4: (props) => <Typography variant="h4" {...props} />,
+    h5: (props) => <Typography variant="h5" {...props} />,
+    h6: (props) => <Typography variant="h6" {...props} />,
+    p: (props) => <Typography variant="body1" {...props} />,
     img: ({ url, alt, ...rest }) => (
       <img src={url} alt={alt} {...rest} style={{ maxWidth: '100%', maxHeight: '100%' }} />
     ),
