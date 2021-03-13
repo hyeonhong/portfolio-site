@@ -21,6 +21,7 @@ import Section from 'components/Section'
 import Exp1 from 'mdx/Exp1.mdx'
 import Exp2 from 'mdx/Exp2.mdx'
 import Skills from 'mdx/Skills.mdx'
+import RecentProject from 'mdx/RecentProject.mdx'
 import projects from 'contents/projects'
 
 const DRAWER_WIDTH = 240
@@ -139,6 +140,29 @@ export default function HomePage() {
         </Section>
 
         <Section id="projects" title="PROJECTS">
+          <Typography variant="h4" sx={{ textAlign: 'left', fontFamily: 'Lora' }}>
+            - Recent project
+          </Typography>
+          <Box sx={{ marginBottom: 4 }} />
+          <Paper elevation={4} className={classes.sectionPaper}>
+            <RecentProject />
+            <Button
+              variant="outlined"
+              size="medium"
+              color="primary"
+              href={'https://github.com/hyeonhong/drkang-site'}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {'View on GitHub'}
+            </Button>
+          </Paper>
+          <Box sx={{ marginBottom: 8 }} />
+          <Typography variant="h4" sx={{ textAlign: 'left', fontFamily: 'Lora' }}>
+            - Old projects
+          </Typography>
+          <Box sx={{ marginBottom: 4 }} />
+
           <Grid container spacing={4}>
             {projects.map((project, index) => (
               <Grid item key={index} xs={12} sm={6} md={4}>
