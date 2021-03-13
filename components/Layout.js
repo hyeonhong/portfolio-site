@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 
 // import Header from './Header'
-// import Footer from './Footer'
+import Footer from './Footer'
 // import Spinner from './Spinner'
 // import ContactPopUp from './ContactPopUp'
 
@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
       {/* <ContactPopUp /> */}
       {children}
       <Box sx={{ flex: 1 }} />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }

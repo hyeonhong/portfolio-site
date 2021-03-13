@@ -1,13 +1,15 @@
 export default {
-  title: 'Hyeon Hong Portfolio',
-  description: 'Hyeon Hong - Full Stack Developer',
+  title: undefined,
+  titleTemplate: 'Hyeon Hong | %s',
+  defaultTitle: 'Hyeon Hong',
+  description: 'Hyeon Hong Portfolio - Full Stack Developer',
   canonical: 'https://hyeonhong.io',
   openGraph: {
     type: 'website',
     locale: 'en',
     url: 'https://hyeonhong.io',
-    title: 'Hyeon Hong Portfolio',
-    description: 'Hyeon Hong - Full Stack Developer',
+    title: 'Hyeon Hong',
+    description: 'Hyeon Hong Portfolio - Full Stack Developer',
     // images: [
     //   {
     //     url: 'https://drkangclinic.com/og-image.jpg',
@@ -22,6 +24,6 @@ export default {
     //     alt: 'Og Image Alt 2'
     //   }
     // ],
-    site_name: 'Hyeon Hong Portfolio'
+    site_name: 'Hyeon Hong'
   }
 }

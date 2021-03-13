@@ -28,6 +28,7 @@ export default function BlogPost({ post }) {
   return (
     <Container>
       <NextSeo
+        title={post.title}
         description={post.description}
         openGraph={{
           title: post.title,
