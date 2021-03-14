@@ -22,8 +22,7 @@ export default [
   },
   {
     heading: 'Portfolio Website',
-    content:
-      'Built with React, GatsbyJS, Material-UI. Blog contents are implemented with GraphQL, Markdown.',
+    content: 'Built with React, Next.js, Material-UI. Blog contents are implemented with MDX.',
     imageSrc: '/assets/images/card4.png',
     gitSrc: 'https://github.com/hyeonhong/portfolio-site'
   },

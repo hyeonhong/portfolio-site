@@ -141,7 +141,7 @@ export default function HomePage() {
 
         <Section id="projects" title="PROJECTS">
           <Typography variant="h4" sx={{ textAlign: 'left', fontFamily: 'Lora' }}>
-            - Recent project
+            {'Recent projects'}
           </Typography>
           <Box sx={{ marginBottom: 4 }} />
           <Paper elevation={4} className={classes.sectionPaper}>
@@ -159,7 +159,7 @@ export default function HomePage() {
           </Paper>
           <Box sx={{ marginBottom: 8 }} />
           <Typography variant="h4" sx={{ textAlign: 'left', fontFamily: 'Lora' }}>
-            - Old projects
+            {'Old projects'}
           </Typography>
           <Box sx={{ marginBottom: 4 }} />
 

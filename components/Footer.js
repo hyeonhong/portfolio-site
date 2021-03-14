@@ -22,7 +22,10 @@ export default function Footer({ texts }) {
         <Box sx={{ marginBottom: 2 }} />
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="body1" display="inline">
-            {'Built with Next.js & Material-UI: '}
+            {'Built with Next.js & Material-UI:'}
+          </Typography>
+          <Typography variant="body1" display="inline" sx={{ whiteSpace: 'pre' }}>
+            {'  '}
           </Typography>
           <a
             href={'https://github.com/hyeonhong/portfolio-site'}
