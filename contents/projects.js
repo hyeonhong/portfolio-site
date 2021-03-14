@@ -22,7 +22,8 @@ export default [
   },
   {
     heading: 'Portfolio Website',
-    content: 'Built with React, Next.js, Material-UI. Blog contents are implemented with MDX.',
+    content:
+      'Built with Next.js, Material-UI with JAMstack in mind.\nBlog contents are implemented with MDX.',
     imageSrc: '/assets/images/card4.png',
     gitSrc: 'https://github.com/hyeonhong/portfolio-site'
   },

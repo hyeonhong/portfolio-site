@@ -182,7 +182,9 @@ export default function HomePage() {
                       <Typography gutterBottom variant="h5">
                         {project.heading}
                       </Typography>
-                      <Typography variant="body1">{project.content}</Typography>
+                      <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
+                        {project.content}
+                      </Typography>
                     </CardContent>
                   </a>
                   <CardActions>
