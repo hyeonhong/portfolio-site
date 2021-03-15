@@ -1,0 +1,44 @@
+---
+title: 'VirtualBox: Solution to running slow on high resolution with Mac host'
+description: 'How to solve the lagging issue of VirtualBox with Mac host and Windows guest.'
+published_at: '2021-03-16T05:24:00.000Z'
+updated_at: '2021-03-16T05:24:00.000Z'
+---
+
+I've been using VirtualBox as a way to emulate the Windows environment.
+
+The other day I upgraded my monitor to 4k and noticed immediately that Virtualbox started lagging substantially.
+
+<br />
+
+After doing some research, I ended up getting around the issue with the following solution: Use Remote Desktop!
+
+<br />
+
+1\. Download **Mircosoft Remote Desktop** from the Mac App Store and install it.
+
+2\. On the guest VM (Windows), enable Remote Desktop
+
+3\. Leave "Enable Server" unchecked on the VM Settings -> Display dialog
+
+4\. Use the NAT option on the VirtualBox Network Dialog
+
+5\. On the Network, click Advanced -> Port forwarding
+
+6\. Enter an arbitary value for Name
+
+7\. Protocol: TCP
+
+8\. Host and Guest IP: blank
+
+9\. Host port: 5030 (arbitrary but unused on my system)
+
+10\. Guest port: 3389 (Remote desktop)
+
+11\. Now, open the Mircosoft Remote Desktop and add a new PC.
+
+12\. PC name: localhost:5030
+
+13\. Provide the necessary credentials for the rest
+
+14\. Launch the VM instance "headless" by shift + clicking the Start button in VirtualBox.
