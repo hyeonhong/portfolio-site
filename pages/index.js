@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import {
+  useMediaQuery,
   Typography,
   Box,
   Hidden,
@@ -75,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HomePage() {
   const classes = useStyles()
+  const isMobile = useMediaQuery('(max-width:600px)')
 
   const ContactButton = ({ icon, href, buttonText }) => (
     <Box>
@@ -87,9 +89,9 @@ export default function HomePage() {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ color: 'text.primary', fontSize: '1.25rem', whiteSpace: 'pre' }}
+        sx={{ color: 'text.primary', fontSize: isMobile ? '1rem' : '1.25rem' }}
       >
-        {`  ${buttonText}`}
+        {buttonText}
       </Button>
     </Box>
   )
