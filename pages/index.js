@@ -129,11 +129,11 @@ export default function HomePage() {
 
         <Section id="experience" title="EXPERIENCE">
           <Box sx={{ textAlign: 'left' }}>
-            <Paper elevation={8} className={clsx(classes.sectionPaper, classes.fullWidth)}>
+            <Paper elevation={4} className={clsx(classes.sectionPaper, classes.fullWidth)}>
               <Exp1 />
             </Paper>
             <Box marginBottom={8} />
-            <Paper elevation={8} className={clsx(classes.sectionPaper, classes.fullWidth)}>
+            <Paper elevation={4} className={clsx(classes.sectionPaper, classes.fullWidth)}>
               <Exp2 />
             </Paper>
           </Box>
@@ -260,7 +260,7 @@ export default function HomePage() {
         </Section>
 
         <Section id="contact" title="CONTACT" fullHeight>
-          <Paper elevation={8} className={classes.contactPaper}>
+          <Paper elevation={4} className={classes.contactPaper}>
             <ContactButton
               icon={faEnvelope}
               href="mailto:hyeonshong@gmail.com"
