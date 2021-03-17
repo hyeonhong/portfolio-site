@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, Container, Box } from '@material-ui/core'
+import { useMediaQuery, Typography, Container, Box } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Footer({ texts }) {
   const classes = useStyles()
+  const isMobile = useMediaQuery('(max-width:600px)')
 
   return (
     <div className={classes.root}>
@@ -25,7 +26,7 @@ export default function Footer({ texts }) {
             {'Built with Next.js & Material-UI:'}
           </Typography>
           <Typography variant="body1" display="inline" sx={{ whiteSpace: 'pre' }}>
-            {'  '}
+            {isMobile ? '\n' : '  '}
           </Typography>
           <a
             href={'https://github.com/hyeonhong/portfolio-site'}
