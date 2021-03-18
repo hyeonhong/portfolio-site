@@ -32,7 +32,12 @@ export default function MyApp(props) {
     h6: (props) => <Typography variant="h6" {...props} />,
     p: (props) => <Typography variant="body1" {...props} />,
     img: ({ url, alt, ...rest }) => (
-      <img src={url} alt={alt} {...rest} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+      <img
+        src={url}
+        alt={alt}
+        {...rest}
+        style={{ maxWidth: '100%', height: 'auto', objectFit: 'scale-down' }}
+      />
     ),
     code: CodeBlock
   }
