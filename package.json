@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "deploy": "aws s3 sync out/. s3://hyeonhong-io.app"
+    "deploy": "aws s3 sync out/. s3://hyeonhong-io.app",
+    "copy-to-gh": "rm -rf ../hyeonhong.github.io/* && cp -a out/. ../hyeonhong.github.io/",
+    "push-gh": "cd ../hyeonhong.github.io && git add . && git commit -m 'update' && git push",
+    "deploy-to-gh": "yarn run build && yarn run copy-to-gh && yarn run push-gh"
   },
   "dependencies": {
     "@emotion/cache": "^11.1.3",
