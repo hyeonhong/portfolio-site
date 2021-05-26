@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import renderToString from 'next-mdx-remote/render-to-string'
-import hydrate from 'next-mdx-remote/hydrate'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote'
 import {
   useMediaQuery,
   Container,
@@ -21,7 +21,6 @@ const components = {}
 
 export default function BlogPost({ post }) {
   const router = useRouter()
-  const mdxContent = hydrate(post.content, { components })
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
@@ -65,7 +64,7 @@ export default function BlogPost({ post }) {
             <Date dateString={post.published_at} />
           </Typography>
           <Box sx={{ marginBottom: 4 }} />
-          {mdxContent}
+          <MDXRemote {...post.content} components={components} />
 
           <Box marginBottom={8} />
           <Divider />
@@ -113,7 +112,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const post = getPostBySlug(params.slug)
-  const content = await renderToString(post.content, { components })
+  const content = await serialize(post.content)
 
   return {
     props: {
