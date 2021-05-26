@@ -1,8 +1,10 @@
+/* eslint-disable multiline-ternary */
+
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import {
-  Hidden,
+  useMediaQuery,
   AppBar,
   Toolbar,
   Divider,
@@ -46,88 +48,86 @@ const Menu = (props) => {
     setMobileOpen(!mobileOpen)
   }
 
-  return (
+  const isMobile = useMediaQuery('(max-width:600px)')
+
+  return isMobile ? (
     <>
-      <Hidden smUp>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              {'Hyeon Hong'}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="temporary"
-          anchor="left"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          ModalProps={{
-            keepMounted: true // Better open performance on mobile.
-          }}
-        >
-          <DrawerList />
-          <Divider />
-          <Box marginBottom={4} />
-          <ListItem button onClick={() => router.push('/blog')}>
-            <ListItemIcon>
-              <MenuIcon />
-            </ListItemIcon>
-            <ListItemText primary="Blog" />
-          </ListItem>
-        </Drawer>
-      </Hidden>
-
-      <Hidden smDown>
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          className={classes.drawer}
-        >
-          <Box marginBottom={5} />
-          <ButtonBase
-            // component="div"
-            disableRipple
-            onClick={() => document.body.scrollIntoView({ behavior: 'smooth' })}
-            style={{ display: 'flex', flexDirection: 'column' }}
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
           >
-            <Typography variant="h5" align="center" color="primary" noWrap>
-              {'Hyeon Hong'}
-            </Typography>
-            <Box marginBottom={1} />
-
-            <Typography variant="body1" align="center" noWrap>
-              {'Full Stack Developer'}
-            </Typography>
-          </ButtonBase>
-          <Box marginBottom={5} />
-          <Divider />
-          <DrawerList />
-          <Divider />
-          <Box marginBottom={4} />
-          <ListItem button onClick={() => router.push('/blog')}>
-            <ListItemIcon>
-              <MenuIcon />
-            </ListItemIcon>
-            <ListItemText primary="Blog" />
-          </ListItem>
-        </Drawer>
-      </Hidden>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            {'Hyeon Hong'}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="temporary"
+        anchor="left"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+        ModalProps={{
+          keepMounted: true // Better open performance on mobile.
+        }}
+      >
+        <DrawerList />
+        <Divider />
+        <Box marginBottom={4} />
+        <ListItem button onClick={() => router.push('/blog')}>
+          <ListItemIcon>
+            <MenuIcon />
+          </ListItemIcon>
+          <ListItemText primary="Blog" />
+        </ListItem>
+      </Drawer>
     </>
+  ) : (
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      classes={{
+        paper: classes.drawerPaper
+      }}
+      className={classes.drawer}
+    >
+      <Box marginBottom={5} />
+      <ButtonBase
+        // component="div"
+        disableRipple
+        onClick={() => document.body.scrollIntoView({ behavior: 'smooth' })}
+        style={{ display: 'flex', flexDirection: 'column' }}
+      >
+        <Typography variant="h5" align="center" color="primary" noWrap>
+          {'Hyeon Hong'}
+        </Typography>
+        <Box marginBottom={1} />
+
+        <Typography variant="body1" align="center" noWrap>
+          {'Full Stack Developer'}
+        </Typography>
+      </ButtonBase>
+      <Box marginBottom={5} />
+      <Divider />
+      <DrawerList />
+      <Divider />
+      <Box marginBottom={4} />
+      <ListItem button onClick={() => router.push('/blog')}>
+        <ListItemIcon>
+          <MenuIcon />
+        </ListItemIcon>
+        <ListItemText primary="Blog" />
+      </ListItem>
+    </Drawer>
   )
 }
 

@@ -15,7 +15,6 @@ import {
   MenuItem,
   Typography,
   IconButton,
-  Hidden,
   Drawer
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -85,7 +84,7 @@ export default function Header({ texts }) {
             <img src="/assets/logo.png" alt="company logo" width={130} height={42.8} />
           </Button>
           <Box className={classes.filler} />
-          <Hidden smDown>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             <MenuList className={classes.menuList}>
               {paths.map((path) => (
                 <MenuItem
@@ -107,15 +106,15 @@ export default function Header({ texts }) {
               ))}
             </MenuList>
             <LangButton />
-          </Hidden>
-          <Hidden smUp>
+          </Box>
+          <Box sx={{ display: { sm: 'none' } }}>
             <IconButton onClick={() => setDrawerOpen(true)}>
               <MenuIcon />
             </IconButton>
-          </Hidden>
+          </Box>
         </Toolbar>
       </Container>
-      <Hidden smUp>
+      <Box sx={{ display: { sm: 'none' } }}>
         <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
           <div onClick={() => setDrawerOpen(false)} className={classes.hamburgerMenu}>
             <Box sx={{ marginBottom: 10 }} />
@@ -132,7 +131,7 @@ export default function Header({ texts }) {
             </MenuList>
           </div>
         </Drawer>
-      </Hidden>
+      </Box>
     </AppBar>
   )
 }

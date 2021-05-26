@@ -4,7 +4,6 @@ import {
   useMediaQuery,
   Typography,
   Box,
-  Hidden,
   Paper,
   Grid,
   Card,
@@ -101,9 +100,9 @@ export default function HomePage() {
       <SideMenu drawerWidth={DRAWER_WIDTH} />
 
       <Box className={classes.main}>
-        <Hidden smUp>
+        <Box sx={{ display: { sm: 'none' } }}>
           <div className={classes.offset} />
-        </Hidden>
+        </Box>
 
         <Box
           sx={{

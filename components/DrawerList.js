@@ -25,13 +25,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+const isBrowser = typeof window !== 'undefined'
+
 const noop = () => {}
 
 function useThrottledOnScroll(callback, delay) {
-  const throttledCallback = React.useMemo(() => (callback ? throttle(callback, delay) : noop), [
-    callback,
-    delay
-  ])
+  const throttledCallback = React.useMemo(
+    () => (callback ? throttle(callback, delay) : noop),
+    [callback, delay]
+  )
 
   React.useEffect(() => {
     if (throttledCallback === noop) {
@@ -87,7 +89,7 @@ function DrawerList() {
     return ids.map((id) => {
       return {
         hash: id,
-        node: document.getElementById(id)
+        node: isBrowser && document.getElementById(id)
       }
     })
   }, [ids])
@@ -107,6 +109,10 @@ function DrawerList() {
 
     // Don't set the active index based on scroll if a link was just clicked
     if (clickedRef.current) {
+      return
+    }
+
+    if (!isBrowser) {
       return
     }
 
@@ -148,6 +154,10 @@ function DrawerList() {
       event.altKey ||
       event.shiftKey
     ) {
+      return
+    }
+
+    if (!isBrowser) {
       return
     }
 
