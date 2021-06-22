@@ -1,7 +1,6 @@
 /* eslint-disable multiline-ternary */
 
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   useMediaQuery,
@@ -35,11 +34,15 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: (props) => props.drawerWidth
+  },
+  link: {
+    // Remove all styling of 'a' tag
+    color: 'inherit',
+    textDecoration: 'inherit'
   }
 }))
 
 const Menu = (props) => {
-  const router = useRouter()
   const classes = useStyles(props)
 
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -83,7 +86,13 @@ const Menu = (props) => {
         <DrawerList />
         <Divider />
         <Box marginBottom={4} />
-        <ListItem button onClick={() => router.push('/blog')}>
+        <ListItem
+          component={'a'}
+          className={classes.link}
+          href={'https://hyeonhong.github.io/blog'}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <ListItemIcon>
             <MenuIcon />
           </ListItemIcon>
@@ -121,7 +130,13 @@ const Menu = (props) => {
       <DrawerList />
       <Divider />
       <Box marginBottom={4} />
-      <ListItem button onClick={() => router.push('/blog')}>
+      <ListItem
+        component={'a'}
+        className={classes.link}
+        href={'https://hyeonhong.github.io/blog'}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <ListItemIcon>
           <MenuIcon />
         </ListItemIcon>
